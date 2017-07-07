@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" >
+        <title>Sistema de Gerenciamento de Pessoas Desaparecidas do Estado do Rio de Janeiro </title>
+
+        <script>
+            function hideFormContainer(){
+                var currentStyle = document.getElementById("form_container").style.display
+                if(currentStyle == "none"){
+                    document.getElementById("form_container").style.display = "block"
+                }else{
+                    document.getElementById("form_container").style.display = "none"
+                }
+            };
+        </script> 
+
+        <style>
+            /* resets definitions */
+            *, *:after, *:before{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: sans-serif;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            /* main sections' definitions */
+
+            body {
+                width:1000px;
+                background-color:#fff;
+                border: 1px solid black;
+                border-radius: 5px;
+                
+            }
+
+            body article {
+                width:980px;
+                padding: 10px;
+            }
+
+            #top{
+                width: 1000px;
+                #height: 40px;
+                color: #fff;
+                background: #000;
+            }
+
+            /* 
+             * Top menu definition
+             * Based on:
+             * https://www.todoespacoonline.com/w/2014/07/menu-simples-com-submenu-em-css/
+             */
+
+            #top-menu-container{
+                background: #000;
+            }
+
+            #top-menu-container #top-menu, #top-menu-container .sub-menu{
+                list-style: none;
+            }
+
+            #top-menu-container a{
+                color: #fff;
+                text-decoration: none;
+                display: block;
+                cursor: pointer;
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing:0.2em;
+            }
+
+            #top-menu-container > #top-menu > li{
+                float: left;
+                position: relative;
+            }
+
+            #top-menu-container > #top-menu > li > a {
+                padding: 20px;
+                margin: 0px;
+                background: #000;
+            }
+
+            #top-menu-container > #top-menu > li:hover a {
+                background: #444;
+            }
+
+            #top-menu-container > #top-menu > li:hover > .sub-menu {
+                display: block;
+            }
+
+            #top-menu-container > #top-menu > li > .sub-menu {
+                position: absolute;
+                top: 50px;
+                left: 5px;
+                background: blue;
+                min-width: 200px;
+                z-index: 1000;
+                display: none;
+            }
+
+            #top-menu-container > #top-menu > li > .sub-menu > li > a {
+                padding: 10px 20px;
+            }
+            
+            #top-menu-container:after {
+                content: '.';
+                display: block;
+                clear: both;
+                visibility: hidden;
+                line-height: 0;
+                height: 0;
+            }
+
+            /* headers */
+
+            .section_header_h3{
+                font-size: 18px;
+            }
+
+            .section_header_h2{
+                font-size: 20px;
+            }
+
+            .section_header_h1{
+                font-size: 28px;
+            }
+
+            /* sections */
+
+            #header_sectiom {
+                text-align: center;
+            }
+
+            .student_subject_semester_table p {
+                margin: 0 5px 0 5px;
+            }
+            
+        </style>
+            
+    </head>
+    <body>
+        <header id="top">
+            <div id="top-menu-container">
+                <ul id="top-menu">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'desaparecidos' %}">Desaparecidos</a></li>
+                    <li><a href="{% url 'usuarios' %}">Usuarios</a></li>
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
+                </ul>
+            </div>
+        </header>
+        <article>
+            {% block page_content %}
+            {% endblock %}
+        </article>
+    </body>
+</html>
