@@ -198,8 +198,15 @@ def buscarDesaparecido(request):
             "possui_cicatriz": resultado.possui_cicatriz, 
             "possui_deficiencia": resultado.possui_deficiencia, 
             "sofreu_amputacao": resultado.sofreu_amputacao, 
-            "tipo_fisico": resultado.tipo_fisico
+            "tipo_fisico": resultado.tipo_fisico,
+            "foto": "",
+            "cartazete": ""
         }
+
+        if resultado.foto.name:
+            um_desaparecido["foto"] = resultado.foto.url
+        if resultado.cartazete.name:
+            um_desaparecido["cartazete"] = resultado.cartazete.url
 
         resultadoFinal["desaparecidos"].append(um_desaparecido)
     return HttpResponse(json.dumps(resultadoFinal))
