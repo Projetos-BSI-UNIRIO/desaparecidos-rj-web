@@ -217,8 +217,11 @@ def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
-            instance = form.save()
-            return redirect("visualizarUsuario", pk = instance.pk)
+            usuario = form.save()
+            usuario.set_password(usuario.password) # to hash the password
+            usuario.save()
+
+            return redirect("visualizarUsuario", pk = usuario.pk)
     else:
         form = UserForm()
     return render(request, "cadastrar_usuario_model_form.html", {
