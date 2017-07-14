@@ -1,0 +1,42 @@
+{% extends './main.html' %}
+
+    {% block page_content %}
+        <article id="form_sectiom" >
+            <h2 class="section_header_h2">Dados de Desaparecido</h2>
+            <br>
+            <div id="dados_container" >
+                {% if pessoa.foto.name %}
+                <img src="{{ pessoa.foto.url }}" width="200" height="200" />
+                {% else %}
+                <img src="" width="200" height="200" />
+                {% endif %}
+                <p><strong>Nome:</strong> {{ pessoa.nome|default_if_none:"" }}</p>
+                <p><strong>Idade:</strong> {{ pessoa.idade|default_if_none:"" }}</p>
+                <p><strong>Altura:</strong> {{ pessoa.altura|default_if_none:"" }} cm</p>
+                <p><strong>Cor da Pele:</strong> {{ pessoa.cor_pele|default_if_none:"" }}</p>
+                <p><strong>Cor dos Olhos:</strong> {{ pessoa.cor_olhos|default_if_none:"" }}</p>
+                <p><strong>Cor dos Cabelo:</strong> {{ pessoa.cor_cabelos|default_if_none:"" }}</p>
+                <p><strong>Sexo:</strong> {{ pessoa.sexo|default_if_none:"" }}</p>
+                <p><strong>Nome do Pai:</strong> {{ pessoa.nome_pai|default_if_none:"" }}</p>
+                <p><strong>Nome da Mae:</strong> {{ pessoa.nome_mae|default_if_none:"" }}</p>
+                <p><strong>Data de Nascimento:</strong> {{ pessoa.data_nascimento|default_if_none:"" }}</p>
+                <p><strong>Data do Desaparecimento:</strong> {{ pessoa.data_desaparecimento|default_if_none:"" }}</p>
+                <p><strong>Local do Desaparecimento:</strong> {{ pessoa.local_desaparecimento|default_if_none:"" }}</p>
+                {% if pessoa.cartazete.name %}
+                <p><strong>Cartazete:</strong> <a href="{{ pessoa.cartazete.url }}">{{ pessoa.cartazete.url }}</a></p>
+                {% else %}
+                <p><strong>Cartazete:</strong> cartazete nao cadastrado</p>
+                {% endif %}
+                <p><strong>Nome no Cartazete:</strong> {{ pessoa.nome_no_cartazete|default_if_none:"" }}</p>
+                <p><strong>Comentario no Cartazete:</strong> {{ pessoa.comentario_desaparecimento|default_if_none:"" }}</p>
+                <p><strong>Possui Tatuagem?</strong> {% if pessoa.possui_tatuagem %}Sim{% else %}Nao{% endif %}</p>
+                <p><strong>Possui Cicatriz?</strong> {% if pessoa.possui_cicatriz %}Sim{% else %}Nao{% endif %}</p>
+                <p><strong>Possui Deficiencia?</strong> {% if pessoa.possui_deficiencia %}Sim{% else %}Nao{% endif %}</p>
+                <p><strong>Sofreu Amputacao?</strong> {% if pessoa.sofre_amputacao %}Sim{% else %}Nao{% endif %}</p>
+                <p><strong>Esta Desaparecido?</strong> {% if pessoa.esta_desaparecido %}Sim{% else %}Nao{% endif %}</p>
+                <p><strong>Tipo Fisico:</strong> {{ pessoa.tipo_fisico|default_if_none:"" }}</p>
+            </div>
+            <br>
+            <a href="{% url 'desaparecidos' %}">Clique aqui para voltar</a>
+        </article>
+    {% endblock %}

@@ -13,6 +13,9 @@ urlpatterns = [
     url(r'desaparecidos/editar/(?P<pk>\d+)/$', views.editarDesaparecido, name='editarDesaparecido'),
     url(r'desaparecidos/visualizar/(?P<pk>\d+)/$', views.visualizarDesaparecido, name='visualizarDesaparecido'),
     url(r'desaparecidos/remover/(?P<pk>\d+)/$', views.removerDesaparecido, name='removerDesaparecido'),
+    url(r'desaparecidos/buscarDesaparecido/$', views.buscarDesaparecido, name='buscarDesaparecido'),
+
+
 
     url(r'usuarios/$', views.usuarios, name='usuarios'),
     url(r'usuarios/cadastrar/$', views.cadastrarUsuario, name='cadastrarUsuario'),

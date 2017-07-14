@@ -1,0 +1,15 @@
+{% extends './main.html' %}
+
+    {% block page_content %}
+        <article id="form_sectiom" >
+            <h2 class="section_header_h2">Dados de Usuario</h2>
+            <br>
+            <div id="dados_container" >
+                <p><strong>Nome de Usuario:</strong> {{ usuario.username|default_if_none:"" }}</p>
+                <p><strong>E-mail:</strong> {{ usuario.email|default_if_none:"" }}</p>
+                <p><strong>Senha:</strong> **********</p>
+            </div>
+            <br>
+            <a href="{% url 'usuarios' %}">Clique aqui para voltar</a>
+        </article>
+    {% endblock %}

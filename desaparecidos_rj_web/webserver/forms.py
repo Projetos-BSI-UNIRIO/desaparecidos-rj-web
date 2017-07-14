@@ -7,6 +7,13 @@ class LogInForm(forms.Form):
 	username = forms.CharField(label='Usuario', max_length=100, required=True)
 	password = forms.CharField(widget=forms.PasswordInput(), label='Senha', required=True)
 
+class UserForm(forms.ModelForm):
+	password = forms.CharField(widget=forms.PasswordInput())
+
+	class Meta:
+		model = User
+		fields = ('username', 'email', 'password')
+
 class PessoaForm(forms.ModelForm):
 	class Meta:
 		model = Pessoa

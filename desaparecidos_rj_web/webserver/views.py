@@ -93,14 +93,14 @@ def cadastrarDesaparecido(request):
             instance = form.save()
             #print(type(instance.photo))
             #print(instance.photo.name)
-            result = getFaceEcoding(instance.foto)
-            if result["invalid_image"] == False:
-                instance.facial_encoding = result["face_encoding"]
-                instance.encoding_distance_to_zero = result["encoding_distance_to_zero"]
-                instance.save()
-            else:
-                instance.delete()
-                return HttpResponse("Imagem invalida. Por favor, tente outra.")
+            #result = getFaceEcoding(instance.foto)
+            #if result["invalid_image"] == False:
+            #    instance.facial_encoding = result["face_encoding"]
+            #    instance.encoding_distance_to_zero = result["encoding_distance_to_zero"]
+            #    instance.save()
+            #else:
+            #    instance.delete()
+            #    return HttpResponse("Imagem invalida. Por favor, tente outra.")
             return redirect("visualizarDesaparecido", pk = instance.pk)
     else:
         form = PessoaForm()
@@ -115,13 +115,13 @@ def editarDesaparecido(request, pk):
         form = PessoaForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             instance = form.save()
-            result = getFaceEcoding(instance.foto)
-            if result["invalid_image"] == False:
-                instance.facial_features = result["face_encoding"]
-                instance.encoding_distance_to_zero = result["encoding_distance_to_zero"]
-                instance.save()
-            else:
-                return HttpResponse("Imagem invalida. Por favor, tente outra.")
+            #result = getFaceEcoding(instance.foto)
+            #if result["invalid_image"] == False:
+            #    instance.facial_features = result["face_encoding"]
+            #    instance.encoding_distance_to_zero = result["encoding_distance_to_zero"]
+            #    instance.save()
+            #else:
+            #    return HttpResponse("Imagem invalida. Por favor, tente outra.")
             return redirect("editarDesaparecido", pk = instance.pk)
     else:
         instance = Pessoa.objects.get(pk=pk)
@@ -133,7 +133,7 @@ def editarDesaparecido(request, pk):
 @login_required
 def visualizarDesaparecido(request, pk):
     pessoa = Pessoa.objects.get(pk=pk)
-    return render(request, "index.html", {"pessoa": pessoa})
+    return render(request, "desaparecido.html", {"pessoa": pessoa})
 
 @login_required
 def removerDesaparecido(request, pk):
@@ -141,22 +141,52 @@ def removerDesaparecido(request, pk):
     pessoa.delete()
     return redirect("desaparecidos")
 
+def buscarDesaparecido(request):
+    pass
+
 @login_required
 def usuarios(request):
-    pass
+    results = User.objects.all()
+    return render(request, "usuarios.html", {
+        #"form": form,
+        "results": results,
+    })
 
 @login_required
 def cadastrarUsuario(request):
-    pass
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            instance = form.save()
+            return redirect("visualizarUsuario", pk = instance.pk)
+    else:
+        form = UserForm()
+    return render(request, "cadastrar_usuario_model_form.html", {
+        "form": form
+    })
 
 @login_required
 def editarUsuario(request, pk):
-    pass
+    if request.method == "POST":
+        instance = User.objects.get(pk=pk)
+        form = UserForm(request.POST, instance=instance)
+        if form.is_valid():
+            instance = form.save()
+            return redirect("editarUsuario", pk = instance.pk)
+    else:
+        instance = User.objects.get(pk=pk)
+        form = UserForm(instance = instance)
+    return render(request, "editar_usuario_model_form.html", {
+        "form": form,
+    })
 
 @login_required
 def visualizarUsuario(request, pk):
-    pass
+    usuario = User.objects.get(pk=pk)
+    return render(request, "usuario.html", {"usuario": usuario})
 
 @login_required
 def removerUsuario(request, pk):
-    pass
+    usuario = get_object_or_404(User, pk=pk)
+    usuario.delete()
+    return redirect("usuarios")
