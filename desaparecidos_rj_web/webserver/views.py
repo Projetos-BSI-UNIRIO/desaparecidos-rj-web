@@ -141,13 +141,54 @@ def removerDesaparecido(request, pk):
     pessoa.delete()
     return redirect("desaparecidos")
 
+
+def buscarDesaparecidoWeb(request):
+    if request.method == "POST":
+        atributos_esperados = [
+            "nome", "idade_aparente", "faixa_altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo", 
+            "nome_pai", "nome_mae", "possui_tatuagem", "possui_cicatriz", "possui_deficiencia", 
+            "sofreu_amputacao", "tipo_fisico"
+        ]
+        atributos_numericos = ["idade", "altura"]
+        atributos_booleanos = ["possui_tatuagem", "possui_cicatriz", "possui_deficiencia", "sofreu_amputacao"]
+
+        form = PessoaBuscaForm(request.POST)
+
+        if form.is_valid():
+            resultadoBusca = Pessoa.objects
+            for atributo in atributos_esperados:
+                if atributo in form.cleaned_data:
+                    if form.cleaned_data[atributo] == "" or form.cleaned_data[atributo] is None:
+                        continue
+                    if atributo in atributos_numericos or atributo in atributos_booleanos:
+                        kwargs = {'{0}'.format(atributo): form.cleaned_data[atributo]}
+                        resultadoBusca = resultadoBusca.filter(**kwargs)
+                    else:
+                        kwargs = {'{0}__{1}'.format(atributo, 'icontains'): form.cleaned_data[atributo]}
+                        resultadoBusca = resultadoBusca.filter(**kwargs)
+            results = []
+            print(resultadoBusca.query)
+            for resultado in resultadoBusca:
+                results.append(resultado)
+            return render(request, "resultados_desaparecido.html", {"form": form, "results": results})
+        else:
+            return HttpResponse("Formulario Invalido.")
+
+
+
+    else:
+        form = PessoaBuscaForm()
+        return render(request, "busca_desaparecido.html", {"form": form})
+
+
+
 def buscarDesaparecido(request):
     dadosBusca = request.GET.get("dados")
     if len(dadosBusca) == 0:
         return HttpResponse("JSON vazio ou mal formatado recebido.")
 
     atributos_esperados = [
-        "nome", "idade", "altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo", 
+        "nome", "idade_aparente", "faixa_altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo", 
         "nome_pai", "nome_mae", "data_nascimento", "data_desaparecimento", 
         "local_desaparecimento", "nome_no_cartazete", "comentario_desaparecimento",
         "possui_tatuagem", "possui_cicatriz", "possui_deficiencia", "sofreu_amputacao", "tipo_fisico"
@@ -193,7 +234,7 @@ def buscarDesaparecido(request):
             "data_desaparecimento": resultado.data_desaparecimento, 
             "local_desaparecimento": resultado.local_desaparecimento, 
             "nome_no_cartazete": resultado.nome_no_cartazete, 
-            "comentario_desaparecimento": resultado.comentario_desaparecimento,
+            #"comentario_desaparecimento": resultado.comentario_desaparecimento,
             "possui_tatuagem": resultado.possui_tatuagem, 
             "possui_cicatriz": resultado.possui_cicatriz, 
             "possui_deficiencia": resultado.possui_deficiencia, 

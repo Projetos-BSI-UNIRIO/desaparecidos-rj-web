@@ -2,26 +2,12 @@
 
     {% block page_content %}
         <section id="header_sectiom">
-            <h2 class="section_header_h1">Desaparecidos</h2>
-            <br>
-            <hr>
-        </section>
-        <section id="object_creation_sectiom">
-            <h2 class="section_header_h2">Criar</h2>
-            <br>
-            <p><a href="{% url 'cadastrarDesaparecido' %}">CLique aqui para cadastrar um desaparecido</a></p>
-            <br>
-            <hr>
-        </section>
-        <section id="serch_section">
-            <h2 class="section_header_h2">Buscar Desaparecido</h2>
-            <br>
-             <p><a href="{% url 'buscarDesaparecidoWeb' %}">Clique aqui para buscar um desaparecido</a></p>
+            <h2 class="section_header_h1">Resultados</h2>
             <br>
             <hr>
         </section>
         <section id="entries_list">
-            <h2 class="section_header_h2">Desaparecidos cadastrados</h2>
+            <h2 class="section_header_h2">Desaparecidos Encontrados</h2>
             <br>
             {% if results %}
                 {% for result in results %}

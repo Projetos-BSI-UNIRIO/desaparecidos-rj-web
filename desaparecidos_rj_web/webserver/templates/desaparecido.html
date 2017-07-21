@@ -11,8 +11,10 @@
                 <img src="" width="200" height="200" />
                 {% endif %}
                 <p><strong>Nome:</strong> {{ pessoa.nome|default_if_none:"" }}</p>
-                <p><strong>Idade:</strong> {{ pessoa.idade|default_if_none:"" }}</p>
-                <p><strong>Altura:</strong> {{ pessoa.altura|default_if_none:"" }} cm</p>
+                <!--<p><strong>Idade:</strong> {{ pessoa.idade|default_if_none:"" }}</p>
+                <p><strong>Altura:</strong> {{ pessoa.altura|default_if_none:"" }} cm</p>-->
+                <p><strong>Idade Aparente:</strong> {{ pessoa.idade_aparente|default_if_none:"" }}</p>
+                <p><strong>Altura:</strong> {{ pessoa.faixa_altura|default_if_none:"" }} cm</p>
                 <p><strong>Cor da Pele:</strong> {{ pessoa.cor_pele|default_if_none:"" }}</p>
                 <p><strong>Cor dos Olhos:</strong> {{ pessoa.cor_olhos|default_if_none:"" }}</p>
                 <p><strong>Cor dos Cabelo:</strong> {{ pessoa.cor_cabelos|default_if_none:"" }}</p>
@@ -33,7 +35,7 @@
                 <p><strong>Possui Cicatriz?</strong> {% if pessoa.possui_cicatriz %}Sim{% else %}Nao{% endif %}</p>
                 <p><strong>Possui Deficiencia?</strong> {% if pessoa.possui_deficiencia %}Sim{% else %}Nao{% endif %}</p>
                 <p><strong>Sofreu Amputacao?</strong> {% if pessoa.sofre_amputacao %}Sim{% else %}Nao{% endif %}</p>
-                <p><strong>Esta Desaparecido?</strong> {% if pessoa.esta_desaparecido %}Sim{% else %}Nao{% endif %}</p>
+                <!--<p><strong>Esta Desaparecido?</strong> {% if pessoa.esta_desaparecido %}Sim{% else %}Nao{% endif %}</p>-->
                 <p><strong>Tipo Fisico:</strong> {{ pessoa.tipo_fisico|default_if_none:"" }}</p>
             </div>
             <br>

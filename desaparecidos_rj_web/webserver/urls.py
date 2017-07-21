@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'desaparecidos/visualizar/(?P<pk>\d+)/$', views.visualizarDesaparecido, name='visualizarDesaparecido'),
     url(r'desaparecidos/remover/(?P<pk>\d+)/$', views.removerDesaparecido, name='removerDesaparecido'),
     url(r'desaparecidos/buscarDesaparecido/$', views.buscarDesaparecido, name='buscarDesaparecido'),
+    url(r'desaparecidos/buscarDesaparecidoWeb/$', views.buscarDesaparecidoWeb, name='buscarDesaparecidoWeb'),
 
 
 
