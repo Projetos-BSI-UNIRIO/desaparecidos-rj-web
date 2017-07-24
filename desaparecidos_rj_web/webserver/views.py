@@ -189,9 +189,8 @@ def buscarDesaparecido(request):
 
     atributos_esperados = [
         "nome", "idade_aparente", "faixa_altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo", 
-        "nome_pai", "nome_mae", "data_nascimento", "data_desaparecimento", 
-        "local_desaparecimento", "nome_no_cartazete", "comentario_desaparecimento",
-        "possui_tatuagem", "possui_cicatriz", "possui_deficiencia", "sofreu_amputacao", "tipo_fisico"
+        "nome_pai", "nome_mae", "possui_tatuagem", "possui_cicatriz", "possui_deficiencia", 
+        "sofreu_amputacao", "tipo_fisico"
     ]
 
     atributos_numericos = ["idade", "altura"]
@@ -223,15 +222,17 @@ def buscarDesaparecido(request):
         um_desaparecido = {
             "nome": resultado.nome, 
             "idade": resultado.idade, 
+            "idade_aparente": resultado.idade_aparente,
             "altura": resultado.altura, 
+            "faixa_altura": resultado.faixa_altura,
             "cor_pele": resultado.cor_pele, 
             "cor_olhos": resultado.cor_olhos, 
             "cor_cabelos": resultado.cor_cabelos, 
             "sexo": resultado.sexo, 
             "nome_pai": resultado.nome_pai, 
             "nome_mae": resultado.nome_mae, 
-            "data_nascimento": resultado.data_nascimento, 
-            "data_desaparecimento": resultado.data_desaparecimento, 
+            "data_nascimento": str(resultado.data_nascimento), 
+            "data_desaparecimento": str(resultado.data_desaparecimento), 
             "local_desaparecimento": resultado.local_desaparecimento, 
             "nome_no_cartazete": resultado.nome_no_cartazete, 
             #"comentario_desaparecimento": resultado.comentario_desaparecimento,
@@ -240,14 +241,14 @@ def buscarDesaparecido(request):
             "possui_deficiencia": resultado.possui_deficiencia, 
             "sofreu_amputacao": resultado.sofreu_amputacao, 
             "tipo_fisico": resultado.tipo_fisico,
-            "foto": "",
-            "cartazete": ""
+            "foto": resultado.foto.url if resultado.foto.name else "",
+            "cartazete": resultado.cartazete.url if resultado.cartazete.name else ""
         }
 
-        if resultado.foto.name:
+        """if resultado.foto.name:
             um_desaparecido["foto"] = resultado.foto.url
         if resultado.cartazete.name:
-            um_desaparecido["cartazete"] = resultado.cartazete.url
+            um_desaparecido["cartazete"] = resultado.cartazete.url"""
 
         resultadoFinal["desaparecidos"].append(um_desaparecido)
     return HttpResponse(json.dumps(resultadoFinal))
