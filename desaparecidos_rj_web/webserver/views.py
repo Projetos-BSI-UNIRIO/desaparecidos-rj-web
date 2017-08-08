@@ -155,11 +155,13 @@ def buscarDesaparecidoWeb(request):
         form = PessoaBuscaForm(request.POST)
 
         if form.is_valid():
+            contador_de_parametros = 0
             resultadoBusca = Pessoa.objects
             for atributo in atributos_esperados:
                 if atributo in form.cleaned_data:
                     if form.cleaned_data[atributo] == "" or form.cleaned_data[atributo] is None:
                         continue
+                    contador_de_parametros += 1
                     if atributo in atributos_numericos or atributo in atributos_booleanos:
                         kwargs = {'{0}'.format(atributo): form.cleaned_data[atributo]}
                         resultadoBusca = resultadoBusca.filter(**kwargs)
@@ -167,6 +169,10 @@ def buscarDesaparecidoWeb(request):
                         kwargs = {'{0}__{1}'.format(atributo, 'icontains'): form.cleaned_data[atributo]}
                         resultadoBusca = resultadoBusca.filter(**kwargs)
             results = []
+
+            if contador_de_parametros == 0:
+                return HttpResponse("Por favor, informe algum valor para busca.")
+
             print(resultadoBusca.query)
             for resultado in resultadoBusca:
                 results.append(resultado)

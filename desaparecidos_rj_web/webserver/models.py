@@ -42,7 +42,7 @@ class Pessoa(models.Model):
 		("desiguais_na_cor", "Desiguais na Cor"),
 		("pretos", "Pretos"),
 		("verdes", "Verdes"),
-		("violetas", "Violetas"),
+		#("violetas", "Violetas"),
 	)
 
 	COR_CABELOS = (
