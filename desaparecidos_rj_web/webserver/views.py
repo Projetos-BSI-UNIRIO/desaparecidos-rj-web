@@ -203,6 +203,7 @@ def buscarDesaparecido(request):
     atributos_booleanos = ["possui_tatuagem", "possui_cicatriz", "possui_deficiencia", "sofreu_amputacao"]
 
     dadosBusca = json.loads(dadosBusca)
+    contador_de_parametros = 0
     resultadoBusca = Pessoa.objects
     for atributo in dadosBusca:
         #print(atributo)
@@ -210,6 +211,7 @@ def buscarDesaparecido(request):
             return HttpResponse("Parametro invalido encontrado.")
         if dadosBusca[atributo] == "":
             continue
+        contador_de_parametros += 1
         if atributo in atributos_numericos or atributo in atributos_booleanos:
             kwargs = {'{0}'.format(atributo): dadosBusca[atributo]}
             #print(kwargs)
@@ -224,6 +226,10 @@ def buscarDesaparecido(request):
     resultadoFinal = {
         "desaparecidos": []
     }
+
+    if contador_de_parametros == 0:
+        return HttpResponse(json.dumps(resultadoFinal))
+
     for resultado in resultadoBusca:
         um_desaparecido = {
             "nome": resultado.nome, 
