@@ -292,14 +292,16 @@ def cadastrarUsuario(request):
 @login_required
 def editarUsuario(request, pk):
     if request.method == "POST":
-        instance = User.objects.get(pk=pk)
-        form = UserForm(request.POST, instance=instance)
+        usuario = User.objects.get(pk=pk)
+        form = UserForm(request.POST, instance=usuario)
         if form.is_valid():
-            instance = form.save()
-            return redirect("editarUsuario", pk = instance.pk)
+            usuario = form.save()
+            usuario.set_password(usuario.password)
+            usuario.save()
+            return redirect("editarUsuario", pk = usuario.pk)
     else:
-        instance = User.objects.get(pk=pk)
-        form = UserForm(instance = instance)
+        usuario = User.objects.get(pk=pk)
+        form = UserForm(instance = usuario)
     return render(request, "editar_usuario_model_form.html", {
         "form": form,
     })
