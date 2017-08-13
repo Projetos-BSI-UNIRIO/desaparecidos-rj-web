@@ -228,7 +228,12 @@ def buscarDesaparecido(request):
     }
 
     if contador_de_parametros == 0:
-        return HttpResponse(json.dumps(resultadoFinal))
+        response = HttpResponse(json.dumps(resultadoFinal))
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        response["Access-Control-Max-Age"] = "1000"
+        response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+        return response
 
     for resultado in resultadoBusca:
         um_desaparecido = {
