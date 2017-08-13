@@ -263,7 +263,19 @@ def buscarDesaparecido(request):
             um_desaparecido["cartazete"] = resultado.cartazete.url"""
 
         resultadoFinal["desaparecidos"].append(um_desaparecido)
-    return HttpResponse(json.dumps(resultadoFinal))
+
+        response = HttpResponse(json.dumps(resultadoFinal))
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        response["Access-Control-Max-Age"] = "1000"
+        response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+
+        print(request.META)
+        print("\n-----\n")
+        print(response.has_header("Access-Control-Allow-Origin"))
+
+    #return HttpResponse(json.dumps(resultadoFinal))
+    return response
 
 @login_required
 def usuarios(request):
