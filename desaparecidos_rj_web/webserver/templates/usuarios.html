@@ -1,0 +1,47 @@
+{% extends './main.html' %}
+
+    {% block page_content %}
+        <section id="header_sectiom">
+            <h2 class="section_header_h1">Desaparecidos</h2>
+            <br>
+            <hr>
+        </section>
+        <section id="object_creation_sectiom">
+            <h2 class="section_header_h2">Criar</h2>
+            <br>
+            <p><a href="{% url 'cadastrarUsuario' %}">CLique aqui para cadastrar um usuario</a></p>
+            <br>
+            <hr>
+        </section>
+        <!--<section id="serch_section">
+            <h2 class="section_header_h2">Search</h2>
+            <br>
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Search</button>
+            </form>
+            <br>
+            <hr>
+        </section>-->
+        <section id="entries_list">
+            <h2 class="section_header_h2">Usuarios cadastrados</h2>
+            <br>
+            {% if results %}
+                {% for result in results %}
+                    <section class="results_list_item">
+                        <div >
+                            <p>Nome de Usuario: {{ result.username }}</p>
+                            <p><a href="{% url 'visualizarUsuario' pk=result.pk %}">Detalhes</a></p>
+                            <p><a href="{% url 'editarUsuario' pk=result.pk %}">Editar</a></p>
+                            <p><a href="{% url 'removerUsuario' pk=result.pk %}">Apagar</a></p>
+                        </div>
+                        <br>
+                        <br>
+                    </section>
+                {% endfor %}
+            {% else %}
+                <p>Nenhum usuario encontrada.</p>
+            {% endif %}
+        </section>
+    {% endblock %}

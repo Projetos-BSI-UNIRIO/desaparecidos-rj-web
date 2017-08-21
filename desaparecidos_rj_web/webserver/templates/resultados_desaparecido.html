@@ -1,0 +1,33 @@
+{% extends './main.html' %}
+
+    {% block page_content %}
+        <section id="header_sectiom">
+            <h2 class="section_header_h1">Resultados</h2>
+            <br>
+            <hr>
+        </section>
+        <section id="entries_list">
+            <h2 class="section_header_h2">Desaparecidos Encontrados</h2>
+            <br>
+            {% if results %}
+                {% for result in results %}
+                    <section class="results_list_item">
+                        <div >
+                            <p>Nome: {{ result.nome }}</p>
+                            <!--<p>Facial Encode: {{ result.facial_encoding }}</p>-->
+                            {% if result.foto %}
+                            <img src="{{ result.foto.url }}" width="100" height="100" />
+                            {% endif %}
+                            <p><a href="{% url 'visualizarDesaparecido' pk=result.pk %}">Detalhes</a></p>
+                            <p><a href="{% url 'editarDesaparecido' pk=result.pk %}">Editar</a></p>
+                            <p><a href="{% url 'removerDesaparecido' pk=result.pk %}">Apagar</a></p>
+                        </div>
+                        <br>
+                        <br>
+                    </section>
+                {% endfor %}
+            {% else %}
+                <p>Nenhuma pessoa encontrada.</p>
+            {% endif %}
+        </section>
+    {% endblock %}
