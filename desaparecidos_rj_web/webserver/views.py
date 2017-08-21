@@ -269,15 +269,15 @@ def buscarDesaparecido(request):
 
         resultadoFinal["desaparecidos"].append(um_desaparecido)
 
-        response = HttpResponse(json.dumps(resultadoFinal))
-        response["Access-Control-Allow-Origin"] = "*"
-        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-        response["Access-Control-Max-Age"] = "1000"
-        response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+    response = HttpResponse(json.dumps(resultadoFinal))
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
 
-        print(request.META)
-        print("\n-----\n")
-        print(response.has_header("Access-Control-Allow-Origin"))
+    print(request.META)
+    print("\n-----\n")
+    print(response.has_header("Access-Control-Allow-Origin"))
 
     #return HttpResponse(json.dumps(resultadoFinal))
     return response
