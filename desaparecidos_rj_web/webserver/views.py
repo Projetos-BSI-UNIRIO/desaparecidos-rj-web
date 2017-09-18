@@ -17,7 +17,10 @@ import time
 import os
 import json
 
-import face_recognition
+import face_recognition # lembrar de instalar
+
+import unidecode # lembrar de instalar
+import string
 
 from .models import *
 from .forms import *	
@@ -49,6 +52,18 @@ def getFaceEcoding(image):
                 "invalid_image": True
             }
 
+
+def normalizarNome(nome):
+    nome_normalizado = unidecode.unidecode(nome).lower().replace(" ", "") # remove acentos e cedilha, colocar tudo em lower case e remove espacos
+    for character in string.punctuation:
+        nome_normalizado = nome_normalizado.replace(character, "") # remove pontuacoes, como apostrofos, tracos e etc.
+    return nome_normalizado
+
+def gerarNomesNormalizados(): # metodo para apeas gerar o nome normalizado para pessoas já cadastradas no momento da introducao desse conceito
+    pessoas = Pessoa.objects.all()
+    for pessoa in pessoas:
+        pessoa.nome_normalizado = normalizarNome(pessoa.nome)
+        pessoa.save()
 
 # Create your views here.
 
@@ -91,6 +106,10 @@ def cadastrarDesaparecido(request):
         form = PessoaForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save()
+            instance.nome_normalizado = normalizarNome(instance.nome)
+            print(instance.nome_normalizado)
+            instance.save()
+            gerarNomesNormalizados()
             #print(type(instance.photo))
             #print(instance.photo.name)
             #result = getFaceEcoding(instance.foto)
@@ -115,6 +134,9 @@ def editarDesaparecido(request, pk):
         form = PessoaForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             instance = form.save()
+            instance.nome_normalizado = normalizarNome(instance.nome)
+            print(instance.nome_normalizado)
+            instance.save()
             #result = getFaceEcoding(instance.foto)
             #if result["invalid_image"] == False:
             #    instance.facial_features = result["face_encoding"]
@@ -166,6 +188,10 @@ def buscarDesaparecidoWeb(request):
                         kwargs = {'{0}'.format(atributo): form.cleaned_data[atributo]}
                         resultadoBusca = resultadoBusca.filter(**kwargs)
                     else:
+                        if atributo == "nome":
+                            atributo = "nome_normalizado"
+                            form.cleaned_data[atributo] = normalizarNome(form.cleaned_data["nome"])
+                            print(form.cleaned_data[atributo])
                         kwargs = {'{0}__{1}'.format(atributo, 'icontains'): form.cleaned_data[atributo]}
                         resultadoBusca = resultadoBusca.filter(**kwargs)
             results = []
@@ -218,6 +244,10 @@ def buscarDesaparecido(request):
             resultadoBusca = resultadoBusca.filter(**kwargs)
             #print(resultadoBusca.query)
         else:
+            if atributo == "nome":
+                atributo = "nome_normalizado"
+                form.cleaned_data[atributo] = normalizarNome(form.cleaned_data["nome"])
+                print(form.cleaned_data[atributo])
             kwargs = {'{0}__{1}'.format(atributo, 'icontains'): dadosBusca[atributo]}
             #print(kwargs)
             resultadoBusca = resultadoBusca.filter(**kwargs)

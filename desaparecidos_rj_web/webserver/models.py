@@ -64,6 +64,7 @@ class Pessoa(models.Model):
 	)
 
 	nome = models.CharField(max_length = 254, blank=True, null=True)
+	nome_normalizado = models.CharField(max_length = 254, blank=True, null=True)
 	idade = models.IntegerField(blank=True, null=True)
 	idade_aparente = models.CharField(max_length = 100, choices = FAIXA_IDADE, blank=True, null=True)
 	altura = models.IntegerField(blank=True, null=True)
