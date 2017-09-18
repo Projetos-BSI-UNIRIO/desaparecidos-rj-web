@@ -109,7 +109,6 @@ def cadastrarDesaparecido(request):
             instance.nome_normalizado = normalizarNome(instance.nome)
             print(instance.nome_normalizado)
             instance.save()
-            gerarNomesNormalizados()
             #print(type(instance.photo))
             #print(instance.photo.name)
             #result = getFaceEcoding(instance.foto)
