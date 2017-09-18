@@ -243,11 +243,12 @@ def buscarDesaparecido(request):
             resultadoBusca = resultadoBusca.filter(**kwargs)
             #print(resultadoBusca.query)
         else:
+            valor_a_ser_buscado = dadosBusca[atributo]
             if atributo == "nome":
                 atributo = "nome_normalizado"
-                form.cleaned_data[atributo] = normalizarNome(form.cleaned_data["nome"])
-                print(form.cleaned_data[atributo])
-            kwargs = {'{0}__{1}'.format(atributo, 'icontains'): dadosBusca[atributo]}
+                valor_a_ser_buscado = normalizarNome(dadosBusca["nome"])
+                print(valor_a_ser_buscado)
+            kwargs = {'{0}__{1}'.format(atributo, 'icontains'): valor_a_ser_buscado}
             #print(kwargs)
             resultadoBusca = resultadoBusca.filter(**kwargs)
             #print(resultadoBusca.query)
