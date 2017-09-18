@@ -50,7 +50,7 @@ class Pessoa(models.Model):
 		("branco", "Branco"),
 		("castanho_claro", "Castanho Claro"),
 		("castanho_escuro", "Castanho Escuro"),
-		("com_mexas_ou_faixas", "Com Mexas ou Faixas"),
+		("com_mechas_ou_faixas", "Com Mechas ou Faixas"),
 		("louro", "Louro"),
 		("preto", "Preto"),
 		("ruivo", "Ruivo")
