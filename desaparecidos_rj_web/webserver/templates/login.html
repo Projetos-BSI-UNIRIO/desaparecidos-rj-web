@@ -22,7 +22,7 @@
                 padding: 0;
                 box-sizing: border-box;
                 font-family: sans-serif;
-                font-size: 14px;
+                #font-size: 14px;
                 line-height: 1.5;
             }
 
@@ -31,140 +31,109 @@
             body {
                 width:1000px;
                 background-color:#fff;
-                border: 1px solid black;
-                border-radius: 5px;
+                #border: 1px solid black;
+                #border-radius: 5px;
+                margin-left: auto;
+                margin-right: auto;
                 
-            }
-
-            body article {
-                width:980px;
-                padding: 10px;
-            }
-
-            #top{
-                width: 1000px;
-                #height: 40px;
-                color: #fff;
-                background: #000;
-            }
-
-            /* 
-             * Top menu definition
-             * Based on:
-             * https://www.todoespacoonline.com/w/2014/07/menu-simples-com-submenu-em-css/
-             */
-
-            #top-menu-container{
-                background: #000;
-            }
-
-            #top-menu-container #top-menu, #top-menu-container .sub-menu{
-                list-style: none;
-            }
-
-            #top-menu-container a{
-                color: #fff;
-                text-decoration: none;
-                display: block;
-                cursor: pointer;
-                text-transform: uppercase;
-                font-size: 12px;
-                font-weight: 700;
-                letter-spacing:0.2em;
-            }
-
-            #top-menu-container > #top-menu > li{
-                float: left;
-                position: relative;
-            }
-
-            #top-menu-container > #top-menu > li > a {
-                padding: 20px;
-                margin: 0px;
-                background: #000;
-            }
-
-            #top-menu-container > #top-menu > li:hover a {
-                background: #444;
-            }
-
-            #top-menu-container > #top-menu > li:hover > .sub-menu {
-                display: block;
-            }
-
-            #top-menu-container > #top-menu > li > .sub-menu {
-                position: absolute;
-                top: 50px;
-                left: 5px;
-                background: blue;
-                min-width: 200px;
-                z-index: 1000;
-                display: none;
-            }
-
-            #top-menu-container > #top-menu > li > .sub-menu > li > a {
-                padding: 10px 20px;
-            }
-            
-            #top-menu-container:after {
-                content: '.';
-                display: block;
-                clear: both;
-                visibility: hidden;
-                line-height: 0;
-                height: 0;
-            }
-
-            /* headers */
-
-            .section_header_h3{
-                font-size: 18px;
-            }
-
-            .section_header_h2{
-                font-size: 20px;
-            }
-
-            .section_header_h1{
-                font-size: 28px;
             }
 
             /* sections */
 
-            #header_sectiom {
-                text-align: center;
+            #login-section {
+                margin: auto;
+                height: auto;
+                width: 450px;
+                border: 3px solid black;
+                border-radius: 15px;
             }
 
-            .student_subject_semester_table p {
-                margin: 0 5px 0 5px;
+            #login-section div {
+                padding-left: 35px;
+                padding-right: 35px;
+            }
+
+            #login-section div p {
+                font-size: 14px;
+            }
+
+            #login-section div p {
+                font-size: 14px;
+            }
+
+            #login-section header {
+                height: 70px;
+                width: 100%;
+                #border-radius: 10px 10px 0px 0px;
+                background-color: #000000;
+            }
+
+            #login-section div form {
+                height: 100%;
+                width: 100%;
+                #background-color: #000000;
+            }
+
+            #login-section div form div {
+                padding: 5px;
+                margin-right: 20px;
+                margin-left: 20px;
+                display: flex;
+                justify-content: center;
+            }
+
+            #login-section div form div input {
+                width: 100%;
+                margin-left: 10px;
+                border-radius: 5px;
+            }
+
+            #button-div {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                display: block;
+            }
+
+            #button-div button {
+                background-color: #000000;
+                color: #ffffff;
+                #border-color: #000000;
+                border-radius: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 12px;
+                padding-right: 12px;
+                display: block;
+                border: 0px solid black;
+                font-weight: bold;
             }
             
         </style>
             
     </head>
     <body>
-        <header id="top">
-            <div id="top-menu-container">
-                <ul id="top-menu">
-                    <li><a href="{% url 'login' %}">LogIn</a></li>
-                </ul>
-            </div>
-        </header>
-        <article>
-            <article id="form_sectiom">
-            <h2 class="section_header_h2">Log in</h2>
-            <br>
-            <p>Por favor, informe seus dados de autenticacao:</p>
-            <br>
-            <div id="form_container" >
+        <section id="login-section">
+            <header>
+                <img src="imagens/logo_sem_fundo.jpg" />
+            </header>
+            <div>
+                <br>
+                <h3 class="section_header_h2">Entrar</h3>
+                <p>Por favor, informe seus dados de autenticacao:</p>
+                <br>
                 <form method="POST" class="post-form">
                     {% csrf_token %}
-                    <table>
-                        {{ form.as_table }}
-                    </table>
-                    <button type="submit">Enviar</button>
+                    {{ form.non_field_errors }}
+                    {{ form.username.errors }}
+                    <div><img src="images/user-icon.jpg" />{{ form.username }}</div>
+                    {{ form.password.errors }}
+                    <div><img src="images/password-icon.jpg" />{{ form.password }}</div>
+                    <br>
+                    <div id="button-div"><button type="submit">ENVIAR</button><div>
                 </form>
             </div>
             <br>
+        </section>
     </body>
 </html>
