@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
@@ -16,108 +17,112 @@
         </script> 
 
         <style>
+            
+
             /* resets definitions */
             *, *:after, *:before{
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
                 font-family: sans-serif;
-                font-size: 14px;
+                #font-size: 14px;
                 line-height: 1.5;
             }
 
             /* main sections' definitions */
 
             body {
-                width:1000px;
+                #width:1000px;
                 background-color:#fff;
                 border: 1px solid black;
-                border-radius: 5px;
+                #margin-left: auto;
+                #margin-right: auto;
                 
             }
 
-            body article {
-                width:980px;
-                padding: 10px;
+            body header {
+                height: 100px;
+                width: auto;
+                background-color: #000000;
+                text-align: center;
             }
 
-            #top{
+            body header div {
+                height: 100px;
                 width: 1000px;
-                #height: 40px;
-                color: #fff;
-                background: #000;
+                margin: 0 auto;
+                color: #ffffff;
+                #text-align: left;
             }
 
-            /* 
-             * Top menu definition
-             * Based on:
-             * https://www.todoespacoonline.com/w/2014/07/menu-simples-com-submenu-em-css/
-             */
-
-            #top-menu-container{
-                background: #000;
+            #logo-section {
+                width: 450px;
+                height: 100px;
+                text-align: center;
+                float: left;
             }
 
-            #top-menu-container #top-menu, #top-menu-container .sub-menu{
+            #logo-section img {
+                width: auto;
+                height: 65px;
+                margin-top: 15px;
+                #float: left;
+            }
+
+
+            #menu-section {
+                width: 520px;
+                height: 100px;
+                #margin: auto;
+                font-weight: bold;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                clear: both;
+                #display: table;
+                float: right;
+            }
+
+            #menu-section ul {
                 list-style: none;
+                overflow: hidden;
             }
 
-            #top-menu-container a{
-                color: #fff;
-                text-decoration: none;
-                display: block;
-                cursor: pointer;
-                text-transform: uppercase;
-                font-size: 12px;
-                font-weight: 700;
-                letter-spacing:0.2em;
-            }
-
-            #top-menu-container > #top-menu > li{
+            #menu-section ul li {
                 float: left;
                 position: relative;
             }
 
-            #top-menu-container > #top-menu > li > a {
-                padding: 20px;
-                margin: 0px;
-                background: #000;
+            #menu-section ul li a:hover {
+                text-decoration: underline;
             }
 
-            #top-menu-container > #top-menu > li:hover a {
-                background: #444;
+            #menu-section ul li a div {
+                text-align: center;
+                width: 100px;
+                height: 70px;
             }
 
-            #top-menu-container > #top-menu > li:hover > .sub-menu {
-                display: block;
+            #menu-section ul li a div img {
+                width: auto;
+                height: 40px;
+                #float: 
             }
 
-            #top-menu-container > #top-menu > li > .sub-menu {
-                position: absolute;
-                top: 50px;
-                left: 5px;
-                background: blue;
-                min-width: 200px;
-                z-index: 1000;
-                display: none;
+            #menu-section ul li a #desaparecidos-option {
+                text-align: center;
+                width: 140px;
+                height: 70px;
             }
 
-            #top-menu-container > #top-menu > li > .sub-menu > li > a {
-                padding: 10px 20px;
-            }
-            
-            #top-menu-container:after {
-                content: '.';
-                display: block;
-                clear: both;
-                visibility: hidden;
-                line-height: 0;
-                height: 0;
+            body section {
+                width:1000px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             /* headers */
 
-            .section_header_h3{
+            /*.section_header_h3{
                 font-size: 18px;
             }
 
@@ -131,26 +136,32 @@
 
             /* sections */
 
-            #header_sectiom {
+            /*#header_sectiom {
                 text-align: center;
             }
 
             .student_subject_semester_table p {
                 margin: 0 5px 0 5px;
-            }
+            }*/
             
         </style>
             
     </head>
     <body>
-        <header id="top">
-            <div id="top-menu-container">
-                <ul id="top-menu">
-                    <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="{% url 'desaparecidos' %}">Desaparecidos</a></li>
-                    <li><a href="{% url 'usuarios' %}">Usuarios</a></li>
-                    <li><a href="{% url 'logout' %}">Sair</a></li>
-                </ul>
+        <header>
+            <div>
+                
+                <section id="menu-section">
+                    <ul>
+                        <li><a href="{% url 'index' %}"><div><img src="{% static 'images/home-icon.png' %}" /><p>Home</p></div></a></li>
+                        <li><a href="{% url 'desaparecidos' %}"><div id="desaparecidos-option"><img src="{% static 'images/scope-icon.png' %}" /><p>Desaparecidos</p></div></a></li>
+                        <li><a href="{% url 'usuarios' %}"><div id="desaparecidos-option"><img src="{% static 'images/user-icon-white.png' %}" /><p>Usuarios</p></div></a></li>
+                        <li><a href="{% url 'logout' %}"><div id="desaparecidos-option"><img src="{% static 'images/x-icon.png' %}" /><p>Sair</p></div></a></li>
+                    </ul>
+                </section>
+                <section id="logo-section">
+                    <img src="{% static 'images/logo-sem-fundo.png' %}" />
+                </section>
             </div>
         </header>
         <article>
