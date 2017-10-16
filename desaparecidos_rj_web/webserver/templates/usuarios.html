@@ -7,18 +7,18 @@
                 <p>Usuários</p>
                 <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
             </header>
-            <section>
+            <section id="button-container">
                 <div id="register-button" class="grey-on-hover">
-                    <a href="{% url 'cadastrarUsuario' %}">
-                        <div>
+                    <a href="{% url 'cadastrarUsuario' %}" class="button-link">
+                        <div class="button-text-container">
                             <p class="button-title">CADASTRO</p>
-                            <p class="button-subtitle">Clique aqui para cadastrar um usuário</p>
+                            <p class="button-subtitle">Clique para cadastrar um usuário</p>
                         </div>
                         <img class="button-icon" src="{% static 'images/black-circle-plus-icon.png' %}">
                     </a>
                 </div>
             </section>
-            <section class="results-grid">
+            <div class="results-grid">
                 {% if results %}
                 {% for result in results %}
                     <div class="result user-result">
@@ -38,9 +38,9 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <p>Nenhum usuario encontrada.</p>
+                <p>Nenhum usuario encontrado.</p>
             {% endif %}
                 
-            </section>
+            </div>
         </section>
     {% endblock %}

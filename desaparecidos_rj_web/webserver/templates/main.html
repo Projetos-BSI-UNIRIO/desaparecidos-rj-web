@@ -5,6 +5,8 @@
         <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" >
         <title>Sistema de Gerenciamento de Pessoas Desaparecidas do Estado do Rio de Janeiro </title>
 
+        <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
+
         <script>
             function hideFormContainer(){
                 var currentStyle = document.getElementById("form_container").style.display
@@ -14,6 +16,22 @@
                     document.getElementById("form_container").style.display = "none"
                 }
             };
+
+            window.onload = function (){
+                var elem = document.querySelector('.results-grid');
+                var msnry = new Masonry( elem, {
+                    // options
+                    itemSelector: '.result',
+                    columnWidth: 250
+                });
+
+                // element argument can be a selector string
+                //   for an individual element
+                var msnry = new Masonry( '.results-grid', {
+                    // options
+                });
+            }
+
         </script> 
 
         <style>
@@ -161,39 +179,50 @@
                 cursor: hand;
             }
 
+            #button-container {
+                width: 100%;
+                height: 120px;
+            }
+
             #register-button {
                 height: 100px;
                 width: 480px;
                 border: 3px solid black;
                 border-radius: 7px;
                 margin: 10px;
+                float: left;
             }
 
-            #register-button a {
+            #search-button {
+                height: 100px;
+                width: 480px;
+                border: 3px solid black;
+                border-radius: 7px;
+                margin: 10px;
+                float: right;
+            }
+
+            .grey-on-hover:hover {
+                background-color: #bdbec0;
+            }
+
+            .button-link {
                 height: 100px;
                 width: 480px;
                 display: block;
             }
 
-            #register-button div {
+            .button-text-container {
                 margin: 10px;
                 float: left;
                 color: #000000;
             }
 
-            #register-button img {
+            .button-icon {
                 height: 75px;
                 width: auto;
                 margin: 10px 15px 10px 10px;
                 float: right;
-            }
-
-            #search-button {
-
-            }
-
-            .grey-on-hover:hover {
-                background-color: #bdbec0;
             }
 
             .button-title {
@@ -205,22 +234,20 @@
 
             }
 
-            .button-icon {
-
-            }
-
 
             .results-grid {
-
+                clear: both;
+                width: 1000px;
+                height: auto;
             }
 
             .result {
                 width: 230px;
-                height: ;
+                height: auto;
                 border: 3px solid black;
                 border-radius: 7px;
                 margin: 10px;
-                float: left;
+                #float: left;
             }
 
             .result .result-contents {
@@ -283,13 +310,59 @@
 
             }
 
+            .person-result .result-contents .link-button {
+                height: 30px;
+                width: 95px;
+                padding-left: 5px;
+                padding-right: 5px;
+                padding-top: 3px;
+                padding-bottom: 3px;
+                border: 2px solid black;
+                border-radius: 7px;
+                display: block;
+                font-weight: bold;
+                color: #000000;
+                float: left;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .person-result .result-contents .link-button p {
+                float: left;
+
+            }
+
+            .person-result .result-contents .link-button img {
+                float: right;
+
+            }
+
             .result .result-contents .label {
                 font-size: 14px;
             }
 
+
+
             .result .result-contents .name {
                 font-weight: bold;
                 font-size: 20px;
+                clear: both;
+            }
+
+            .result-photo {
+                width: 100px;
+                height: auto;
+                float:left;
+                border: 2px solid black;
+                border-radius: 7px;
+            }
+
+            .dummy-photo {
+                width: 100px;
+                height: 100px;
+                float:left;
+                border: 2px solid black;
+                border-radius: 7px;
             }
 
             
