@@ -35,7 +35,7 @@ class PessoaBuscaForm(forms.ModelForm):
         labels = {
             "nome": "Nome", 
             "idade_aparente": "Idade Aparente",
-            "faixa_altura": "Altura", 
+            "faixa_altura": "Faixa Altura", 
             "cor_pele": "Cor da Pele", 
             "cor_olhos": "Cor dos Olhos", 
             "cor_cabelos": "Cor do Cabelo", 
