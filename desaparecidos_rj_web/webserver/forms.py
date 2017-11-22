@@ -13,6 +13,11 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
+        labels = {
+            "username": "Usuário", 
+            "email": "E-mail",
+            "password": "Senha"
+        }
 
 class PessoaForm(forms.ModelForm):
     class Meta:
