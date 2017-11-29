@@ -28,6 +28,25 @@ class PessoaForm(forms.ModelForm):
             "local_desaparecimento", "cartazete", "nome_no_cartazete", "comentario_desaparecimento",
             "possui_tatuagem", "possui_cicatriz", "possui_deficiencia", "sofreu_amputacao", "tipo_fisico"
         ]
+        labels = {
+            "nome": "Nome", 
+            "idade_aparente": "Idade Aparente",
+            "faixa_altura": "Faixa Altura", 
+            "cor_pele": "Cor da Pele", 
+            "cor_olhos": "Cor dos Olhos", 
+            "cor_cabelos": "Cor do Cabelo", 
+            "sexo": "Sexo", 
+            "nome_pai": "Nome do Pai", 
+            "nome_mae": "Nome da Mãe", 
+            "possui_tatuagem": "Possui Tatuagem?", 
+            "possui_cicatriz": "Possui Cicatriz?", 
+            "possui_deficiencia": "Possui Deficiencia?", 
+            "sofreu_amputacao": "Sofreu Amputacao?", 
+            "tipo_fisico": "Tipo Fisico",
+            "data_desaparecimento": "Data de Desaparecimento", 
+            "local_desaparecimento": "Local de Desaparecimento",
+            "comentario_desaparecimento": "Comentário sobre o desaparecimento"
+        }
 
 class PessoaBuscaForm(forms.ModelForm):
     class Meta:
@@ -46,7 +65,7 @@ class PessoaBuscaForm(forms.ModelForm):
             "cor_cabelos": "Cor do Cabelo", 
             "sexo": "Sexo", 
             "nome_pai": "Nome do Pai", 
-            "nome_mae": "Nome da Mae", 
+            "nome_mae": "Nome da Mãe", 
             "possui_tatuagem": "Possui Tatuagem?", 
             "possui_cicatriz": "Possui Cicatriz?", 
             "possui_deficiencia": "Possui Deficiencia?", 
