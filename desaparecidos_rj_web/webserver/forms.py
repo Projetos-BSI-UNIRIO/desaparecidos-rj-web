@@ -31,6 +31,7 @@ class PessoaForm(forms.ModelForm):
         labels = {
             "nome": "Nome", 
             "idade_aparente": "Idade Aparente",
+            "data_nascimento": "Data de Nascimento",
             "faixa_altura": "Faixa Altura", 
             "cor_pele": "Cor da Pele", 
             "cor_olhos": "Cor dos Olhos", 
@@ -45,7 +46,9 @@ class PessoaForm(forms.ModelForm):
             "tipo_fisico": "Tipo Fisico",
             "data_desaparecimento": "Data de Desaparecimento", 
             "local_desaparecimento": "Local de Desaparecimento",
-            "comentario_desaparecimento": "Comentário sobre o desaparecimento"
+            "comentario_desaparecimento": "Comentário sobre o desaparecimento",
+            "cartazete": "Cartazete",
+            "nome_no_cartazete": "Nome no cartazete"
         }
 
 class PessoaBuscaForm(forms.ModelForm):

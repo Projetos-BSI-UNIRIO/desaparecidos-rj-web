@@ -30,6 +30,19 @@
                 var msnry = new Masonry( '.results-grid', {
                     // options
                 });
+
+
+                var input_foto = document.getElementById('id_foto');
+                var file_foto = document.getElementById('foto-file-name');
+                var input_cartazete = document.getElementById('id_cartazete');
+                var file_cartazete = document.getElementById('cartazete-file-name');
+
+                input_foto.addEventListener('change', function(){
+                    file_foto.textContent = this.value;
+                });
+                input_cartazete.addEventListener('change', function(){
+                    file_cartazete.textContent = this.value;
+                });
             }
 
         </script> 
@@ -439,8 +452,44 @@
                 height: 100%;
             }
 
+            .foto_fields_container {
+                float: right;
+                width: 200px;
+                #overflow: hidden;
+            }
+
+            .foto_fields_container * {
+                clear: both;
+            }
+
+            .foto_fields_container input[type='file'] {
+                display: none;
+            }
 
 
+            .foto_fields_container label {
+                background-color: #000000;
+                border-radius: 5px;
+                color: #fff;
+                cursor: pointer;
+                #margin-left: 7px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 19px;
+                padding-right: 19px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .form_container form p.label-paragraph {
+                font-size: 16px;
+                font-weight: normal;
+                margin-bottom: 5px;
+            }
+
+            .foto_fields_container input[type='text'] {
+                width: 200px;
+            }
 
 
 
