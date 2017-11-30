@@ -1,19 +1,114 @@
 {% extends './main.html' %}
+{% load static %}
 
     {% block page_content %}
-        <article id="form_sectiom" >
-            <h2 class="section_header_h2">Editar desaparecido</h2>
-            <br>
-            <div id="form_container" >
+
+        <section id="page-contents">
+            <header class="content-top">
+                <p>Edição de Desaparecido</p>
+                <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
+            </header>
+            <section class="form_container">
                 <form method="POST" enctype="multipart/form-data" class="post-form">
                     {% csrf_token %}
-                    <table>
-                        {{ form.as_table }}
-                    </table>
-                    <button type="submit">Salvar Alteracoes</button>
+                    {{ form.non_field_errors }}
+                    <div class="fields_container">
+                        <div class="fields_left_column">
+                            <p>Dados Pessoais</p>
+                            {{ form.nome.errors }}
+                            <div class="form_field">{{ form.nome.label_tag }}<span>{{ form.nome }}</span></div>
+                            {{ form.sexo.errors }}
+                            <div class="form_field">{{ form.sexo.label_tag }}<span>{{ form.sexo }}</span></div>
+                            {{ form.data_nascimento.errors }}
+                            <div class="form_field">{{ form.data_nascimento.label_tag }}<span>{{ form.data_nascimento }}</span></div>
+                            {{ form.idade_aparente.errors }}
+                            <div class="form_field">{{ form.idade_aparente.label_tag }}<span>{{ form.idade_aparente }}</span></div>
+                            {{ form.nome_pai.errors }}
+                            <div class="form_field">{{ form.nome_pai.label_tag }}<span>{{ form.nome_pai }}</span></div>
+                            {{ form.nome_mae.errors }}
+                            <div class="form_field">{{ form.nome_mae.label_tag }}<span>{{ form.nome_mae }}</span></div>
+                            
+                            <br>
+                            <p>Aparência e Características</p>
+                            {{ form.tipo_fisico.errors }}
+                            <div class="form_field">{{ form.tipo_fisico.label_tag }}<span>{{ form.tipo_fisico }}</span></div>
+                            {{ form.faixa_altura.errors }}
+                            <div class="form_field">{{ form.faixa_altura.label_tag }}<span>{{ form.faixa_altura }}</span></div>
+                            {{ form.cor_pele.errors }}
+                            <div class="form_field">{{ form.cor_pele.label_tag }}<span>{{ form.cor_pele }}</span></div>
+                            {{ form.cor_olhos.errors }}
+                            <div class="form_field">{{ form.cor_olhos.label_tag }}<span>{{ form.cor_olhos }}</span></div>
+                            {{ form.cor_cabelos.errors }}
+                            <div class="form_field">{{ form.cor_cabelos.label_tag }}<span>{{ form.cor_cabelos }}</span></div>
+                            {{ form.possui_tatuagem.errors }}
+                            <div class="form_field">{{ form.possui_tatuagem.label_tag }}<span>{{ form.possui_tatuagem }}</span></div>
+                            {{ form.possui_cicatriz.errors }}
+                            <div class="form_field">{{ form.possui_cicatriz.label_tag }}<span>{{ form.possui_cicatriz }}</span></div>
+                            {{ form.possui_deficiencia.errors }}
+                            <div class="form_field">{{ form.possui_deficiencia.label_tag }}<span>{{ form.possui_deficiencia }}</span></div>
+                            {{ form.sofreu_amputacao.errors }}
+                            <div class="form_field">{{ form.sofreu_amputacao.label_tag }}<span>{{ form.sofreu_amputacao }}</span></div>
+                        </div>
+                        <div class="fields_right_column">
+                            <div class="foto_fields_container">
+                                <br>
+                                {{ form.foto.errors }}
+                                <div class="form_field">
+                                    <p class="label-paragraph">Foto:</p>
+                                    {% if form.instance.foto.name %}
+                                    <img src="{{ form.instance.foto.url }}" width="200" height="200" />
+                                    {% else %}
+                                    <img src="{% static 'images/no-photo-image.png' %}" width="200" height="200" />
+                                    {% endif %}
+                                    <br>
+                                    <div style="display: none;">
+                                    {{ form.foto }}
+                                    </div>
+                                    <label for="id_foto">ESCOLHER ARQUIVO</label>
+                                    <span id='foto-file-name'></span>
+                                    
+                                    <p><!-- Gambiarra --></p>
+                                    <br>
+                                    <p class="label-paragraph">Cartazete:</p>
+                                    {% if form.instance.cartazete.name %}
+                                    <img src="{{ form.instance.cartazete.url }}" width="200" height="200" />
+                                    {% else %}
+                                    <img src="{% static 'images/no-cartazete.png' %}" width="200" height="200" />
+                                    {% endif %}
+                                    <br>
+                                    <div style="display: none;">
+                                    {{ form.cartazete }}
+                                    </div>
+                                    <label for="id_cartazete">ESCOLHER ARQUIVO</label>
+                                    <span id='cartazete-file-name'></span>
+                                    
+
+                                    <p><!-- Gambiarra --></p>
+                                    <br>
+                                    <p class="label-paragraph">Nome no cartazete:</p>
+                                    {{ form.nome_no_cartazete }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p><!-- Gambiarra --></p>
+                    <br>
+                    <p>Sobre o Desaparecimento</p>
+                    {{ form.data_desaparecimento.errors }}
+                    <div class="form_field larger_form_field">{{ form.data_desaparecimento.label_tag }}<span>{{ form.data_desaparecimento }}</span></div>
+                    {{ form.local_desaparecimento.errors }}
+                    <div class="form_field larger_form_field">{{ form.local_desaparecimento.label_tag }}<span>{{ form.local_desaparecimento }}</span></div>
+                    {{ form.local_desaparecimento.errors }}
+                    <div class="form_field full_width_form_field">
+                        {{ form.comentario_desaparecimento.label_tag }}
+                        <br>
+                        {{ form.comentario_desaparecimento }}
+                    </div>
+
+                    <br>
+                    <div class="button-div"><button type="submit">SALVAR ALTERAÇÕES</button><div>
                 </form>
-            </div>
-            <br>
-            <a href="{% url 'desaparecidos' %}">Clique aqui para voltar</a>
-        </article>
+            </section>
+
     {% endblock %}
