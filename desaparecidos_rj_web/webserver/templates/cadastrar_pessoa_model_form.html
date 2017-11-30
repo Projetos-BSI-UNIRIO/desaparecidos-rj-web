@@ -9,7 +9,7 @@
                 <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
             </header>
             <section class="form_container">
-                <form method="POST" class="post-form">
+                <form method="POST" enctype="multipart/form-data" class="post-form">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     <div class="fields_container">
