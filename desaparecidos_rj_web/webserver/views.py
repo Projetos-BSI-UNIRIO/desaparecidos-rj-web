@@ -196,7 +196,8 @@ def buscarDesaparecidoWeb(request):
             results = []
 
             if contador_de_parametros == 0:
-                return HttpResponse("Por favor, informe algum valor para busca.")
+                return render(request, "erro_busca.html", {})
+                #return HttpResponse("Por favor, informe algum valor para busca.")
 
             print(resultadoBusca.query)
             for resultado in resultadoBusca:
