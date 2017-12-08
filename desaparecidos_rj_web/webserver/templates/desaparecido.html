@@ -7,10 +7,10 @@
             <header class="content-top">
                 <p>Detalhes do Desaparecido</p>
                 <a href="{% url 'editarDesaparecido' pk=pessoa.pk %}" class="option-button link-button grey-on-hover">
-                    <p>Editar</p><img src="{% static 'images/pencil-icon.png' %}">
+                    <span>Editar</span><img src="{% static 'images/pencil-icon.png' %}">
                 </a>
                 <a href="{% url 'removerDesaparecido' pk=pessoa.pk %}" class="option-button link-button grey-on-hover">
-                    <p>Excluir</p><img src="{% static 'images/black-x-icon.png' %}">
+                    <span>Excluir</span><img src="{% static 'images/black-x-icon.png' %}">
                 </a>
                 <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
             </header>

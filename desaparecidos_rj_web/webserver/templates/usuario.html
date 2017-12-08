@@ -1,15 +1,32 @@
 {% extends './main.html' %}
+{% load static %}
 
     {% block page_content %}
-        <article id="form_sectiom" >
-            <h2 class="section_header_h2">Dados de Usuario</h2>
-            <br>
-            <div id="dados_container" >
-                <p><strong>Nome de Usuario:</strong> {{ usuario.username|default_if_none:"" }}</p>
-                <p><strong>E-mail:</strong> {{ usuario.email|default_if_none:"" }}</p>
-                <p><strong>Senha:</strong> **********</p>
-            </div>
-            <br>
-            <a href="{% url 'usuarios' %}">Clique aqui para voltar</a>
-        </article>
+        <section id="page-contents">
+            <header class="content-top">
+                <p>Detalhes do Usuário</p>
+                <a href="{% url 'editarUsuario' pk=usuario.pk %}" class="option-button link-button grey-on-hover">
+                    <span>Editar</span><img src="{% static 'images/pencil-icon.png' %}">
+                </a>
+                <a href="{% url 'removerUsuario' pk=usuario.pk %}" class="option-button link-button grey-on-hover">
+                    <span>Excluir</span><img src="{% static 'images/black-x-icon.png' %}">
+                </a>
+                <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
+            </header>
+            <section class="person_data_container">
+                <div class="fields_container">
+
+                    <div class="fields_left_column">
+                        <p>Dados de Autenticação</p>
+                        <div class="data_field"><span class="space-to-the-right">Nome de usuario:</span><span class="grey-text">{{ usuario.username|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">E-mail:</span><span class="grey-text">{{ usuario.email|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Senha:</span><span class="grey-text">**********</span></div>
+                    </div>
+                    <div class="fields_right_column">
+                        
+                    </div>
+                    <p><!-- Gambiarra --></p>
+                </div>
+            </section>
+        </section>
     {% endblock %}
