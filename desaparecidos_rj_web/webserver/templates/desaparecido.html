@@ -1,44 +1,91 @@
 {% extends './main.html' %}
+{% load static %}
 
     {% block page_content %}
-        <article id="form_sectiom" >
-            <h2 class="section_header_h2">Dados de Desaparecido</h2>
-            <br>
-            <div id="dados_container" >
-                {% if pessoa.foto.name %}
-                <img src="{{ pessoa.foto.url }}" width="200" height="200" />
-                {% else %}
-                <img src="" width="200" height="200" />
-                {% endif %}
-                <p><strong>Nome:</strong> {{ pessoa.nome|default_if_none:"" }}</p>
-                <!--<p><strong>Idade:</strong> {{ pessoa.idade|default_if_none:"" }}</p>
-                <p><strong>Altura:</strong> {{ pessoa.altura|default_if_none:"" }} cm</p>-->
-                <p><strong>Idade Aparente:</strong> {{ pessoa.idade_aparente|default_if_none:"" }}</p>
-                <p><strong>Altura:</strong> {{ pessoa.faixa_altura|default_if_none:"" }} cm</p>
-                <p><strong>Cor da Pele:</strong> {{ pessoa.cor_pele|default_if_none:"" }}</p>
-                <p><strong>Cor dos Olhos:</strong> {{ pessoa.cor_olhos|default_if_none:"" }}</p>
-                <p><strong>Cor dos Cabelo:</strong> {{ pessoa.cor_cabelos|default_if_none:"" }}</p>
-                <p><strong>Sexo:</strong> {{ pessoa.sexo|default_if_none:"" }}</p>
-                <p><strong>Nome do Pai:</strong> {{ pessoa.nome_pai|default_if_none:"" }}</p>
-                <p><strong>Nome da Mae:</strong> {{ pessoa.nome_mae|default_if_none:"" }}</p>
-                <p><strong>Data de Nascimento:</strong> {{ pessoa.data_nascimento|default_if_none:"" }}</p>
-                <p><strong>Data do Desaparecimento:</strong> {{ pessoa.data_desaparecimento|default_if_none:"" }}</p>
-                <p><strong>Local do Desaparecimento:</strong> {{ pessoa.local_desaparecimento|default_if_none:"" }}</p>
-                {% if pessoa.cartazete.name %}
-                <p><strong>Cartazete:</strong> <a href="{{ pessoa.cartazete.url }}">{{ pessoa.cartazete.url }}</a></p>
-                {% else %}
-                <p><strong>Cartazete:</strong> cartazete nao cadastrado</p>
-                {% endif %}
-                <p><strong>Nome no Cartazete:</strong> {{ pessoa.nome_no_cartazete|default_if_none:"" }}</p>
-                <p><strong>Comentario no Cartazete:</strong> {{ pessoa.comentario_desaparecimento|default_if_none:"" }}</p>
-                <p><strong>Possui Tatuagem?</strong> {% if pessoa.possui_tatuagem %}Sim{% else %}Nao{% endif %}</p>
-                <p><strong>Possui Cicatriz?</strong> {% if pessoa.possui_cicatriz %}Sim{% else %}Nao{% endif %}</p>
-                <p><strong>Possui Deficiencia?</strong> {% if pessoa.possui_deficiencia %}Sim{% else %}Nao{% endif %}</p>
-                <p><strong>Sofreu Amputacao?</strong> {% if pessoa.sofre_amputacao %}Sim{% else %}Nao{% endif %}</p>
-                <!--<p><strong>Esta Desaparecido?</strong> {% if pessoa.esta_desaparecido %}Sim{% else %}Nao{% endif %}</p>-->
-                <p><strong>Tipo Fisico:</strong> {{ pessoa.tipo_fisico|default_if_none:"" }}</p>
-            </div>
-            <br>
-            <a href="{% url 'desaparecidos' %}">Clique aqui para voltar</a>
-        </article>
+
+        <section id="page-contents">
+            <header class="content-top">
+                <p>Detalhes do Desaparecido</p>
+                <a href="{% url 'editarDesaparecido' pk=pessoa.pk %}" class="option-button link-button grey-on-hover">
+                    <p>Editar</p><img src="{% static 'images/pencil-icon.png' %}">
+                </a>
+                <a href="{% url 'removerDesaparecido' pk=pessoa.pk %}" class="option-button link-button grey-on-hover">
+                    <p>Excluir</p><img src="{% static 'images/black-x-icon.png' %}">
+                </a>
+                <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
+            </header>
+            <section class="person_data_container">
+                <div class="fields_container">
+
+                    <div class="fields_left_column">
+                        <p>Dados Pessoais</p>
+                        <div class="data_field"><span class="space-to-the-right">Nome:</span><span class="grey-text">{{ pessoa.nome|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Sexo:</span><span class="grey-text">{{ pessoa.sexo|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Data de nascimento:</span><span class="grey-text">{{ pessoa.data_nascimento|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Idade aparente:</span><span class="grey-text">{{ pessoa.get_idade_aparente_display|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Nome do pai:</span><span class="grey-text">{{ pessoa.nome_pai|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Nome da mãe:</span><span class="grey-text">{{ pessoa.nome_mae|default_if_none:"" }}</span></div>
+                        
+                        <br>
+                        <p>Aparência e Características</p>
+                        <div class="data_field"><span class="space-to-the-right">Tipo físico:</span><span class="grey-text">{{ form.tipo_fisico }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Faixa de altura:</span><span class="grey-text">{{ pessoa.get_faixa_altura_display|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Cor da pele:</span><span class="grey-text">{{ pessoa.cor_pele|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Cor dos olhos:</span><span class="grey-text">{{ pessoa.cor_olhos|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Cor do cabelo:</span><span class="grey-text">{{ pessoa.cor_cabelos|default_if_none:"" }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Possui tatuagem?</span><span class="grey-text">{% if pessoa.possui_tatuagem %}Sim{% else %}Nao{% endif %}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Possui cicatriz?</span><span class="grey-text">{% if pessoa.possui_cicatriz %}Sim{% else %}Nao{% endif %}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Possui deficiência?</span><span class="grey-text">{% if pessoa.possui_deficiencia %}Sim{% else %}Nao{% endif %}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Sofreu amputação?</span><span class="grey-text">{% if pessoa.sofreu_amputacao %}Sim{% else %}Nao{% endif %}</span></div>
+                    </div>
+                    <div class="fields_right_column">
+                        <div class="foto_fields_container">
+                            <div class="data_field">
+                                <p class="label-paragraph">Foto:</p>
+                                {% if pessoa.foto.name %}
+                                <img src="{{ pessoa.foto.url }}" width="200" height="200" />
+                                {% else %}
+                                <img src="{% static 'images/no-photo-image.png' %}" width="200" height="200" />
+                                {% endif %}
+                                <br>
+                                
+                                <p><!-- Gambiarra --></p>
+                                <br>
+                                <p class="label-paragraph">Cartazete:</p>
+                                {% if pessoa.cartazete.name %}
+                                <img src="{{ pessoa.cartazete.url }}" width="200" height="200" />
+                                {% else %}
+                                <img src="{% static 'images/no-cartazete.png' %}" width="200" height="200" />
+                                {% endif %}
+                                
+
+                                <p><!-- Gambiarra --></p>
+                                <br>
+                                <p class="label-paragraph">Nome no cartazete:</p>
+                                {% if pessoa.nome_no_cartazete %}
+                                <span class="grey-text">{{ pessoa.nome_no_cartazete }}</span>
+                                {% else %}
+                                <span class="grey-text">Sem nome no cartazete</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <p><!-- Gambiarra --></p>
+                    <br>
+                    <p>Sobre o Desaparecimento</p>
+                    <div class="data_field larger_form_field"><span class="space-to-the-right">Data do desaparecimento:</span><span class="grey-text">{{ pessoa.data_desaparecimento|default_if_none:"" }}</span></div>
+                    <div class="data_field larger_form_field"><span class="space-to-the-right">Local do desaparecimento:</span><span class="grey-text">{{ pessoa.local_desaparecimento|default_if_none:"" }}</span></div>
+                    <div class="data_field full_width_form_field">
+                        Comentário sobre o desaparecimento:
+                        <br>
+                        <span class="grey-text">{{ pessoa.comentario_desaparecimento|default_if_none:"" }}</span>
+                    </div>
+                </div>
+
+                
+
+            </section>
+        </section>
+
     {% endblock %}

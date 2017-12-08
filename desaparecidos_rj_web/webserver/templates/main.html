@@ -385,7 +385,7 @@
 
 
 
-            .form_container {
+            .form_container, .person_data_container {
                 margin: 10px;
                 border: 3px solid black;
                 border-radius: 15px;
@@ -438,8 +438,67 @@
             }
 
 
+            .person_data_container > div {
+                padding: 20px;
+            }
+
+            .person_data_container > div p {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 5px;
+                clear: both;
+            }
+
+            .person_data_container > div .data_field {
+            #    display: inline;
+                margin-bottom: 10px;
+            #    width: 400px;
+            #}
+
+            #.person_data_container > div .data_field label {
+            #    float: left;
+            #    clear: both;
+            #}
+
+            #.person_data_container > div .data_field span {
+            #    float: left;
+            #    clear: both;
+            #    display: block;
+            #    overflow: hidden;
+            #    padding-right: 10px;
+            #}
+
+            #.person_data_container > div .data_field span > input, span > select {
+            #    width: 100%;
+            #}
+            
+            .grey-text {
+                color: #818286;
+                #margin-left: 10px;
+            }
+            .space-to-the-right {
+                margin-right: 10px;
+            }
+
+            .person_data_container > div .larger_form_field {
+                margin-bottom: 10px;
+                width: 500px;
+            }
+
+            .person_data_container > div .full_width_form_field {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            .person_data_container > div .full_width_form_field textarea {
+                height: 150px;
+                width: 100%;
+            }
+
+
             .fields_container {
                 width: 100%;
+
             }
 
             .fields_container .fields_left_column{
