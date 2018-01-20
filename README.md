@@ -34,6 +34,9 @@ Para testar a aplicação fora de produção, basta executar, dentro do ambiente
 
     python manage.py runserver
 
+Para servir a aplicação utilizando o Apache, um tutorial que pode ajudar é:
+
+https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-apache-and-mod_wsgi-on-ubuntu-14-04
 
 ## Informação Adicional ##
 
