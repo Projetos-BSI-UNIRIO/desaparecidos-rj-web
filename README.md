@@ -30,6 +30,8 @@ Para “executar” a aplicação web no Ubuntu Linux (16.04), basta instalar o 
     
     pip install django
     
+    pip install unidecode
+    
     # Esta linha demorará a ser concluída.
     pip install face_recognition
 
