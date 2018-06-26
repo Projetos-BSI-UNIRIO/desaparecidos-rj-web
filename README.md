@@ -28,7 +28,10 @@ Para “executar” a aplicação web no Ubuntu Linux (16.04), basta instalar o 
     
     source activate desaparecidosrjweb
     
-    pip install dlib
+    pip install django
+    
+    # Esta linha demorará a ser concluída.
+    pip install face_recognition
 
 Para testar a aplicação fora de produção, basta executar, dentro do ambiente virtual, a seguinte linha e acessar, através de um navegador web, a URL “http://localhost:8000”:
 
