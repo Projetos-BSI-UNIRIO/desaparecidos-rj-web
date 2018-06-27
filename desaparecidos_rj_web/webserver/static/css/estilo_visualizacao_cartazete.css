@@ -1,0 +1,115 @@
+/* resets definitions */
+*, *:after, *:before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    #font-size: 14px;
+    line-height: 1.5;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* main sections' definitions */
+
+body {
+    width:1000px;
+    background-color:#000;
+    #border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+#page-contents{
+    padding-top: 50px;
+    font-weight: bold;
+}
+
+#cartazete-container {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px;
+    padding-bottom: 45px;
+    text-align: center;
+    background-color: #000;
+}
+
+#cartazete-container p {
+    #color: #fff;
+    #text-align: center;
+    #margin-left: auto;
+    #margin-right: auto;
+}
+
+#dados-desaparecido {
+    border: 4px solid #f7bd1b;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 25px;
+    padding-top: 25px;
+    padding-bottom: 10px;
+}
+
+.yellow-text {
+    color: #f7bd1b;
+}
+
+.white-text {
+    color: #fff;
+}
+
+#foto-e-dados-container {
+    width: 500px;
+    height: 200px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 15px;
+    text-align: left;
+    color: #fff;
+}
+
+#foto-e-dados-container img {
+    display: inline-block;
+    float: left;
+}
+
+#foto-e-dados-container div {
+    margin-left: 20px;
+    display: inline-block;
+    float: left;
+}
+
+.titulo {
+    font-size: 28px;
+    text-decoration: underline;
+}
+
+#nome-container {
+    border: 5px solid #fff;
+    margin-top: 15px;
+    margin-left: 40px;
+    margin-right: 40px;
+    text-align: center;
+    padding: 5px;
+}
+
+#nome-container p {
+    font-size: 20px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.telefone {
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.logo {
+    width: 150px;
+    height: 120px;
+    margin-bottom: 25px;
+}
