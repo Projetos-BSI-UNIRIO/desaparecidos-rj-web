@@ -50,7 +50,7 @@
 
 
                     var base64image = canvas.toDataURL("image/png");
-                    tela_impressao = window.open("_blank");
+                    tela_impressao = window.open("");
                     tela_impressao.document.write("<!DOCTYPE html><html><head></head><body>")
                     tela_impressao.document.write("<img src=\"" + base64image + "\" />");
                     tela_impressao.document.write("</body></html>")
