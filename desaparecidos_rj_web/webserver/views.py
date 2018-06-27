@@ -156,6 +156,35 @@ def visualizarDesaparecido(request, pk):
     pessoa = Pessoa.objects.get(pk=pk)
     return render(request, "desaparecido.html", {"pessoa": pessoa})
 
+def visualizarCartazeteDesaparecido(request, pk):
+    pessoa = Pessoa.objects.get(pk=pk)
+
+    idade = "desconhecida"
+    comentario = ""
+    data_desaparecimento = ""
+    nome_exibicao = ""
+
+    if pessoa.data_nascimento != None:
+        hoje = date.today()
+        data_nascimento = pessoa.data_nascimento.date()
+        idade = hoje.year - data_nascimento.year - ((hoje.month, hoje.day) < (data_nascimento.month, data_nascimento.day))
+        idade = str(idade) + " anos"
+
+    if pessoa.comentario_desaparecimento != None:
+        comentario = pessoa.comentario_desaparecimento[:25] + ("..." if len(pessoa.comentario_desaparecimento) > 25 else "")
+
+    if pessoa.data_desaparecimento != None:
+        data_desaparecimento = pessoa.data_desaparecimento.date().strftime("%d/%m/%y")
+    
+    if pessoa.nome != None:
+        nome_exibicao = pessoa.nome[:25] + ("..." if len(pessoa.nome) > 25 else "")
+
+    return render(
+        request, 
+        "cartazete.html", 
+        {"pessoa": pessoa, "idade": idade, "data_desaparecimento": data_desaparecimento, "nome_exibicao": nome_exibicao}
+    )
+
 @login_required
 def removerDesaparecido(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)
