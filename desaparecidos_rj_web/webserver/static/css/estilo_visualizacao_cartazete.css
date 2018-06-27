@@ -26,6 +26,7 @@ body {
 #page-contents{
     padding-top: 50px;
     font-weight: bold;
+    background-color: #000;
 }
 
 #cartazete-container {

@@ -12,7 +12,7 @@
 
         <link rel="stylesheet" type="text/css" href="{% static 'css/estilo_visualizacao_cartazete.css' %}">
 
-
+        <style type="text/css"></style>
         <script type="text/javascript">
             function downloadURI(uri, name) {
                 //alert("Buh!")
@@ -32,53 +32,35 @@
                 });
             }
 
+
             function imprimirCartazete(){
                 //alert("Buh!")
 
                 html2canvas(document.querySelector("#cartazete-container")).then(function(canvas) {
-                    // Export the canvas to its data URI representation
-                    var base64image = canvas.toDataURL("image/png");
-                    // Open the image in a new window
-                    tela_impressao = window.open(base64image , "_blank");
+                    /*html_element = document.getElementById("page-contents")
+                    //alert(html_element.innerHTML);
 
+                    tela_impressao = window.open("");
+                    tela_impressao.document.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"{% static 'css/estilo_visualizacao_cartazete.css' %}\">");
+                    tela_impressao.document.write(html_element.innerHTML);
 
-                    //tela_impressao.focus();
-                    //tela_impressao.print();
-                    //tela_impressao.close();
-                    
-                    tela_impressao.window.addEventListener("load", function(){
-                        alert("Buh!");
-                        tela_impressao.window.focus();
-                        tela_impressao.window.print();
-                        tela_impressao.window.close();
-                    }, false);
-                    
-                        
-                    //}
-
-                    
-                    
-                    /*
-                    // Export canvas as a blob 
-                    canvas.toBlob(function(blob) {
-                        // Generate file download
-                        window.saveAs(blob, "cartazete.png");
-                    });
+                    tela_impressao.addEventListener('load', imprimir(tela_impressao), false);
                     */
-                    
-                    //var base64image = canvas.toDataURL("image/png");
-                    //downloadURI("data:" + base64image, "cartazete.png");
+
+
+
+                    var base64image = canvas.toDataURL("image/png");
+                    tela_impressao = window.open("_blank");
+                    tela_impressao.document.write("<!DOCTYPE html><html><head></head><body>")
+                    tela_impressao.document.write("<img src=\"" + base64image + "\" />");
+                    tela_impressao.document.write("</body></html>")
+                    tela_impressao.document.close();
+
+                    tela_impressao.window.print();
+                    tela_impressao.window.close();
+
                 });
 
-                /*
-                var conteudo = document.getElementById('cartazete-container').innerHTML;
-                var tela_impressao = window.open('about:blank');
-
-                tela_impressao.document.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"{% static 'css/estilo_visualizacao_cartazete.css' %}\">");
-                tela_impressao.document.write(conteudo);
-                tela_impressao.window.print();
-                tela_impressao.window.close();
-                */
             }
         </script>
 
