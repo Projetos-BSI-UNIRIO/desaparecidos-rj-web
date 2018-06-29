@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now, localtime
+from django.urls import reverse
 
 from datetime import date, timedelta, datetime
 import pytz
@@ -182,7 +183,13 @@ def visualizarCartazeteDesaparecido(request, pk):
     return render(
         request, 
         "cartazete.html", 
-        {"pessoa": pessoa, "idade": idade, "data_desaparecimento": data_desaparecimento, "nome_exibicao": nome_exibicao}
+        {
+            "pessoa": pessoa, 
+            "idade": idade, 
+            "data_desaparecimento": data_desaparecimento, 
+            "nome_exibicao": nome_exibicao, 
+            "url_do_cartazete": request.build_absolute_uri(reverse('visualizarCartazeteDesaparecido', args=(pk, )))
+        }
     )
 
 @login_required
