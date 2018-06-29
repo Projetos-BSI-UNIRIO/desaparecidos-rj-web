@@ -32,6 +32,35 @@
                 });
             }
 
+            function imprimir(tela_impressao){
+                console.log("c");
+                tela_impressao.window.print();
+                tela_impressao.window.close();
+            }
+
+            function montarHtml(tela_impressao, base64image){
+                console.log("a");
+                tela_impressao.document.write("<!DOCTYPE html><html><head></head><body>")
+                tela_impressao.document.write("<img src=\"" + base64image + "\" />");
+                tela_impressao.document.write("</body></html>")
+                tela_impressao.document.close();
+
+                /*var interval = setInterval(function(tela_impressao) {
+                    if(tela_impressao.document.readyState === 'complete') {
+                        console.log("b");
+                        console.log(typeof tela_impressao);
+                        clearInterval(interval);
+                        imprimir(tela_impressao);
+                    } else {
+                        console.log("-")
+                    }
+                }, 10000);*/
+
+                tela_impressao.document.addEventListener("load", imprimir(tela_impressao));
+
+                
+            }
+
 
             function imprimirCartazete(){
                 //alert("Buh!")
@@ -51,13 +80,18 @@
 
                     var base64image = canvas.toDataURL("image/png");
                     tela_impressao = window.open("");
-                    tela_impressao.document.write("<!DOCTYPE html><html><head></head><body>")
+
+                    console.log(tela_impressao);
+
+                    tela_impressao.window.addEventListener("load", montarHtml(tela_impressao, base64image));
+
+                    /*tela_impressao.document.write("<!DOCTYPE html><html><head></head><body>")
                     tela_impressao.document.write("<img src=\"" + base64image + "\" />");
                     tela_impressao.document.write("</body></html>")
                     tela_impressao.document.close();
 
                     tela_impressao.window.print();
-                    tela_impressao.window.close();
+                    tela_impressao.window.close();*/
 
                 });
 
