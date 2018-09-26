@@ -1,0 +1,11 @@
+cmake==3.12.0
+Django==1.10.4
+gunicorn==19.6.0
+six==1.10.0
+urllib3==1.19.1
+whitenoise==3.2.2
+unidecode==1.0.22
+face_recognition==1.2.2
+pytz==2018.5
+dj-database-url==0.3.0
+psycopg2==2.7.5
