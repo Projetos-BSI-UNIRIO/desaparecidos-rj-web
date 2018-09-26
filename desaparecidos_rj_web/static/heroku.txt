@@ -1,0 +1,2 @@
+Pasta e arquivos criados apenas para deploy do servidor no Heroku.
+Caso haja mudança de servidor, esta pasta e todos os arquivos internos podem ser excluídos.
