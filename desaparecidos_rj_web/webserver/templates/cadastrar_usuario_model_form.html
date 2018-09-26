@@ -1,0 +1,25 @@
+{% extends './main.html' %}
+{% load static %}
+
+    {% block page_content %}
+        <section id="page-contents">
+            <header class="content-top">
+                <p>Cadastro de Usuário</p>
+                <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
+            </header>
+            <section class="form_container">
+                <form method="POST" class="post-form">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form.username.errors }}
+                    <div class="form_field">{{ form.username.label_tag }}<span>{{ form.username }}</span></div>
+                    {{ form.email.errors }}
+                    <div class="form_field">{{ form.email.label_tag }}<span>{{ form.email }}</span></div>
+                    {{ form.password.errors }}
+                    <div class="form_field">{{ form.password.label_tag }}<span>{{ form.password }}</span></div>
+
+                    <div class="button-div"><button type="submit">CADASTRAR</button></div>
+                </form>
+            </section>
+        </section>
+    {% endblock %}

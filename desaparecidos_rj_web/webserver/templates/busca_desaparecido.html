@@ -1,0 +1,55 @@
+{% extends './main.html' %}
+{% load static %}
+
+    {% block page_content %}
+
+
+
+        <section id="page-contents">
+            <header class="content-top">
+                <p>Buscar Desaparecido</p>
+                <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
+            </header>
+            <section class="form_container">
+                <form method="POST" class="post-form">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+
+                    <p>Dados Pessoais</p>
+                    {{ form.nome.errors }}
+                    <div class="form_field">{{ form.nome.label_tag }}<span>{{ form.nome }}</span></div>
+                    {{ form.sexo.errors }}
+                    <div class="form_field">{{ form.sexo.label_tag }}<span>{{ form.sexo }}</span></div>
+                    {{ form.idade_aparente.errors }}
+                    <div class="form_field">{{ form.idade_aparente.label_tag }}<span>{{ form.idade_aparente }}</span></div>
+                    {{ form.nome_pai.errors }}
+                    <div class="form_field">{{ form.nome_pai.label_tag }}<span>{{ form.nome_pai }}</span></div>
+                    {{ form.nome_mae.errors }}
+                    <div class="form_field">{{ form.nome_mae.label_tag }}<span>{{ form.nome_mae }}</span></div>
+                    
+                    <br>
+                    <p>Aparência e Características</p>
+                    {{ form.tipo_fisico.errors }}
+                    <div class="form_field">{{ form.tipo_fisico.label_tag }}<span>{{ form.tipo_fisico }}</span></div>
+                    {{ form.faixa_altura.errors }}
+                    <div class="form_field">{{ form.faixa_altura.label_tag }}<span>{{ form.faixa_altura }}</span></div>
+                    {{ form.cor_pele.errors }}
+                    <div class="form_field">{{ form.cor_pele.label_tag }}<span>{{ form.cor_pele }}</span></div>
+                    {{ form.cor_olhos.errors }}
+                    <div class="form_field">{{ form.cor_olhos.label_tag }}<span>{{ form.cor_olhos }}</span></div>
+                    {{ form.cor_cabelos.errors }}
+                    <div class="form_field">{{ form.cor_cabelos.label_tag }}<span>{{ form.cor_cabelos }}</span></div>
+                    {{ form.possui_tatuagem.errors }}
+                    <div class="form_field">{{ form.possui_tatuagem.label_tag }}<span>{{ form.possui_tatuagem }}</span></div>
+                    {{ form.possui_cicatriz.errors }}
+                    <div class="form_field">{{ form.possui_cicatriz.label_tag }}<span>{{ form.possui_cicatriz }}</span></div>
+                    {{ form.possui_deficiencia.errors }}
+                    <div class="form_field">{{ form.possui_deficiencia.label_tag }}<span>{{ form.possui_deficiencia }}</span></div>
+                    {{ form.sofreu_amputacao.errors }}
+                    <div class="form_field">{{ form.sofreu_amputacao.label_tag }}<span>{{ form.sofreu_amputacao }}</span></div>
+                    <br>
+                    <div class="button-div"><button type="submit">BUSCAR</button><div>
+                </form>
+            </section>
+
+    {% endblock %}

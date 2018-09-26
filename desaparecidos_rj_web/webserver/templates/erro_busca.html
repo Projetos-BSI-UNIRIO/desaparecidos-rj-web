@@ -1,0 +1,15 @@
+{% extends './main.html' %}
+{% load static %}
+
+    {% block page_content %}
+        <section id="page-contents">
+            <header class="content-top">
+                <p>Desaparecidos (resultado da pesquisa)</p>
+                <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
+            </header>
+            <section class="results-grid">
+                <p style="margin-left: 10px; margin-top: 40px;font-weight: bold; font-size: 16px;">Por favor, informe algum valor para busca.</p>
+                <p style="margin-left: 10px; font-weight: bold; font-size: 16px;">Para voltar, clique no botão "voltar", na lateral direita desta página.</p>
+            </section>
+        </section>
+    {% endblock %}
