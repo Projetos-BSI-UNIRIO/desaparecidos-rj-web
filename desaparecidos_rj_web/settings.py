@@ -88,8 +88,7 @@ WSGI_APPLICATION = 'desaparecidos_rj_web.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://jlhdzikewiovee:03fd466c7d024db8268d86cb1320896a1d56336ae9cdb99ed197344854f95bee@ec2-54-83-29-34.compute-1.amazonaws.com:5432/d98sa37euvn8lt
-')
+    'default': dj_database_url.config(default='postgres://jlhdzikewiovee:03fd466c7d024db8268d86cb1320896a1d56336ae9cdb99ed197344854f95bee@ec2-54-83-29-34.compute-1.amazonaws.com:5432/d98sa37euvn8lt')
 }
 
 
