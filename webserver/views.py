@@ -23,7 +23,7 @@ import unidecode # lembrar de instalar
 import string
 
 from .models import *
-from .forms import *	
+from .forms import *
 
 
 def getFaceEcoding(image):
@@ -45,7 +45,7 @@ def getFaceEcoding(image):
             return {
                 "invalid_image": False,
                 "face_encoding": str(encodings[0].tolist()).replace(" ", "").replace("[", "").replace("]", ""),
-                "encoding_distance_to_zero": 0 
+                "encoding_distance_to_zero": 0
             }
         else:
             return {
@@ -85,6 +85,21 @@ def userLogin(request):
             return HttpResponse("Dados de autenticacao invalidos.")
     else:
         return render(request, "login.html", {"form": LogInForm()})
+
+def userLogin(request):
+    if request.method == "POST":
+        login_form = LogInForm(request.POST)
+        if login_form.is_valid():
+            user = authenticate(username=login_form.cleaned_data["username"], password=login_form.cleaned_data["password"])
+            if user and user.is_active:
+                login(request, user)
+                return json.dumps(True)
+            else:
+                return json.dumps(False)
+        else:
+            return json.dumps(False)
+    else:
+        return json.dumps(False)
 
 @login_required
 def userLogout(request):
@@ -166,8 +181,8 @@ def removerDesaparecido(request, pk):
 def buscarDesaparecidoWeb(request):
     if request.method == "POST":
         atributos_esperados = [
-            "nome", "idade_aparente", "faixa_altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo", 
-            "nome_pai", "nome_mae", "possui_tatuagem", "possui_cicatriz", "possui_deficiencia", 
+            "nome", "idade_aparente", "faixa_altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo",
+            "nome_pai", "nome_mae", "possui_tatuagem", "possui_cicatriz", "possui_deficiencia",
             "sofreu_amputacao", "tipo_fisico"
         ]
         atributos_numericos = ["idade", "altura"]
@@ -220,8 +235,8 @@ def buscarDesaparecido(request):
         return HttpResponse("JSON vazio ou mal formatado recebido.")
 
     atributos_esperados = [
-        "nome", "idade_aparente", "faixa_altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo", 
-        "nome_pai", "nome_mae", "possui_tatuagem", "possui_cicatriz", "possui_deficiencia", 
+        "nome", "idade_aparente", "faixa_altura", "cor_pele", "cor_olhos", "cor_cabelos", "sexo",
+        "nome_pai", "nome_mae", "possui_tatuagem", "possui_cicatriz", "possui_deficiencia",
         "sofreu_amputacao", "tipo_fisico"
     ]
 
@@ -268,26 +283,26 @@ def buscarDesaparecido(request):
 
     for resultado in resultadoBusca:
         um_desaparecido = {
-            "nome": resultado.nome, 
-            "idade": resultado.idade, 
+            "nome": resultado.nome,
+            "idade": resultado.idade,
             "idade_aparente": resultado.idade_aparente,
-            "altura": resultado.altura, 
+            "altura": resultado.altura,
             "faixa_altura": resultado.faixa_altura,
-            "cor_pele": resultado.cor_pele, 
-            "cor_olhos": resultado.cor_olhos, 
-            "cor_cabelos": resultado.cor_cabelos, 
-            "sexo": resultado.sexo, 
-            "nome_pai": resultado.nome_pai, 
-            "nome_mae": resultado.nome_mae, 
-            "data_nascimento": str(resultado.data_nascimento), 
-            "data_desaparecimento": str(resultado.data_desaparecimento), 
-            "local_desaparecimento": resultado.local_desaparecimento, 
-            "nome_no_cartazete": resultado.nome_no_cartazete, 
+            "cor_pele": resultado.cor_pele,
+            "cor_olhos": resultado.cor_olhos,
+            "cor_cabelos": resultado.cor_cabelos,
+            "sexo": resultado.sexo,
+            "nome_pai": resultado.nome_pai,
+            "nome_mae": resultado.nome_mae,
+            "data_nascimento": str(resultado.data_nascimento),
+            "data_desaparecimento": str(resultado.data_desaparecimento),
+            "local_desaparecimento": resultado.local_desaparecimento,
+            "nome_no_cartazete": resultado.nome_no_cartazete,
             #"comentario_desaparecimento": resultado.comentario_desaparecimento,
-            "possui_tatuagem": resultado.possui_tatuagem, 
-            "possui_cicatriz": resultado.possui_cicatriz, 
-            "possui_deficiencia": resultado.possui_deficiencia, 
-            "sofreu_amputacao": resultado.sofreu_amputacao, 
+            "possui_tatuagem": resultado.possui_tatuagem,
+            "possui_cicatriz": resultado.possui_cicatriz,
+            "possui_deficiencia": resultado.possui_deficiencia,
+            "sofreu_amputacao": resultado.sofreu_amputacao,
             "tipo_fisico": resultado.tipo_fisico,
             "foto": resultado.foto.url if resultado.foto.name else "",
             "cartazete": resultado.cartazete.url if resultado.cartazete.name else ""
