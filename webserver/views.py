@@ -86,7 +86,7 @@ def userLogin(request):
     else:
         return render(request, "login.html", {"form": LogInForm()})
 
-def userLogin(request):
+def userLoginMobile(request):
     if request.method == "POST":
         login_form = LogInForm(request.POST)
         if login_form.is_valid():
