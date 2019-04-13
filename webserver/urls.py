@@ -7,6 +7,7 @@ urlpatterns = [
 
     url(r'login/$', views.userLogin, name='login'),
     url(r'logout/$', views.userLogout, name='logout'),
+    url(r'loginmobile/$', views.userLoginMobile, name='loginMobile'),
 
     url(r'desaparecidos/$', views.desaparecidos, name='desaparecidos'),
     url(r'desaparecidos/cadastrar/$', views.cadastrarDesaparecido, name='cadastrarDesaparecido'),

@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now, localtime
-
+from django.views.decorators.csrf import csrf_exempt
 from datetime import date, timedelta, datetime
 import pytz
 import calendar
@@ -85,21 +85,21 @@ def userLogin(request):
             return HttpResponse("Dados de autenticacao invalidos.")
     else:
         return render(request, "login.html", {"form": LogInForm()})
-
+@csrf_exempt
 def userLoginMobile(request):
     if request.method == "POST":
         login_form = LogInForm(request.POST)
         if login_form.is_valid():
-            user = authenticate(username=login_form.cleaned_data["username"], password=login_form.cleaned_data["password"])
-            if user and user.is_active:
+           user = authenticate(username=login_form.cleaned_data["username"], password=login_form.cleaned_data["password"])
+           if user and user.is_active:
                 login(request, user)
                 return json.dumps(True)
-            else:
+           else:
                 return json.dumps(False)
         else:
             return json.dumps(False)
     else:
-        return json.dumps(False)
+       return json.dumps(True)
 
 @login_required
 def userLogout(request):
@@ -177,7 +177,7 @@ def removerDesaparecido(request, pk):
     pessoa.delete()
     return redirect("desaparecidos")
 
-
+@login_required
 def buscarDesaparecidoWeb(request):
     if request.method == "POST":
         atributos_esperados = [
@@ -228,7 +228,7 @@ def buscarDesaparecidoWeb(request):
         return render(request, "busca_desaparecido.html", {"form": form})
 
 
-
+@login_required
 def buscarDesaparecido(request):
     dadosBusca = request.GET.get("dados")
     if len(dadosBusca) == 0:
@@ -335,8 +335,6 @@ def usuarios(request):
         #"form": form,
         "results": results,
     })
-
-@login_required
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
