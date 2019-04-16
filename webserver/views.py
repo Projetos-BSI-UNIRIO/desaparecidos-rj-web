@@ -13,7 +13,7 @@ from datetime import date, timedelta, datetime
 import pytz
 import calendar
 import time
-
+import logging
 import os
 import json
 
@@ -76,6 +76,7 @@ def userLogin(request):
         login_form = LogInForm(request.POST)
         if login_form.is_valid():
             user = authenticate(username=login_form.cleaned_data["username"], password=login_form.cleaned_data["password"])
+            print(request)
             if user and user.is_active:
                 login(request, user)
                 return redirect("index")
@@ -87,20 +88,16 @@ def userLogin(request):
         return render(request, "login.html", {"form": LogInForm()})
 @csrf_exempt
 def userLoginMobile(request):
-    if request.method == "POST":
-        login_form = LogInForm(request.POST)
-        if login_form.is_valid():
-           user = authenticate(username=login_form.cleaned_data["username"], password=login_form.cleaned_data["password"])
-           if user and user.is_active:
+    if request.method == "POST":  
+        user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+        print(request.POST.get('username'))
+        if user and user.is_active:
                 login(request, user)
-                return json.dumps(True)
-           else:
-                return json.dumps(False)
+                return HttpResponse(status=200)
         else:
-            return json.dumps(False)
+             return HttpResponse(status=301)
     else:
-       return json.dumps(True)
-
+        return HttpResponse(status=302)
 @login_required
 def userLogout(request):
     logout(request)
@@ -228,9 +225,10 @@ def buscarDesaparecidoWeb(request):
         return render(request, "busca_desaparecido.html", {"form": form})
 
 
-@login_required
+
+@csrf_exempt
 def buscarDesaparecido(request):
-    dadosBusca = request.GET.get("dados")
+    dadosBusca = request.POST.get("dados")
     if len(dadosBusca) == 0:
         return HttpResponse("JSON vazio ou mal formatado recebido.")
 
