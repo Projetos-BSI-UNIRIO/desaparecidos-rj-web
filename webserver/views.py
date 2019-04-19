@@ -106,7 +106,7 @@ def userLogout(request):
 @login_required
 def desaparecidos(request):
     #form = BuscaPessoaForm()
-    results = Pessoa.objects.all()
+    results = Pessoa.actives.all()
     return render(request, "desaparecidos.html", {
         #"form": form,
         "results": results,
@@ -171,7 +171,8 @@ def visualizarDesaparecido(request, pk):
 @login_required
 def removerDesaparecido(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)
-    pessoa.delete()
+    pessoa.is_active=False
+    pessoa.save()
     return redirect("desaparecidos")
 
 @login_required
@@ -189,7 +190,7 @@ def buscarDesaparecidoWeb(request):
 
         if form.is_valid():
             contador_de_parametros = 0
-            resultadoBusca = Pessoa.objects
+            resultadoBusca = Pessoa.actives
             for atributo in atributos_esperados:
                 if atributo in form.cleaned_data:
                     if form.cleaned_data[atributo] == "" or form.cleaned_data[atributo] is None:
@@ -243,7 +244,7 @@ def buscarDesaparecido(request):
 
     dadosBusca = json.loads(dadosBusca)
     contador_de_parametros = 0
-    resultadoBusca = Pessoa.objects
+    resultadoBusca = Pessoa.actives
     for atributo in dadosBusca:
         #print(atributo)
         if atributo not in atributos_esperados:
@@ -328,11 +329,12 @@ def buscarDesaparecido(request):
 
 @login_required
 def usuarios(request):
-    results = User.objects.all()
+    results = Usuario.actives.all()
     return render(request, "usuarios.html", {
         #"form": form,
         "results": results,
     })
+
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -373,5 +375,6 @@ def visualizarUsuario(request, pk):
 @login_required
 def removerUsuario(request, pk):
     usuario = get_object_or_404(User, pk=pk)
-    usuario.delete()
+    usuario.is_active = False
+    usuario.save()
     return redirect("usuarios")
