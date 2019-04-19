@@ -120,9 +120,10 @@ class Pessoa(models.Model):
     #   return self.nome + " " + self.rg
 
 
-# Por ser apenas um proxy, tanto faz referenciar como "Usuario" ou "User". 
-# No entanto, como "Usuario", eh possivel limitar o query selector a buscar
-# apenas usuarios ativos, utilizando o manager "actives".
+# CONSIDERANDO AS OPERACOES CRUD, NAO UTILIZAR PARA CREATE, UPDATE E DELETE.
+# Por ser apenas um proxy, ao efetuar buscas, tanto faz referenciar como "Usuario" 
+# ou "User". No entanto, como "Usuario", eh possivel limitar o query selector a 
+# buscar apenas usuarios ativos, utilizando o manager "actives".
 class Usuario(User):
     # default manager
     objects = models.Manager()
@@ -131,4 +132,3 @@ class Usuario(User):
 
     class Meta:
         proxy = True
-        ordering = ('first_name', )

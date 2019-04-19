@@ -141,7 +141,7 @@ def cadastrarDesaparecido(request):
 @login_required
 def editarDesaparecido(request, pk):
     if request.method == "POST":
-        instance = Pessoa.objects.get(pk=pk)
+        instance = Pessoa.actives.get(pk=pk)
         form = PessoaForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             instance = form.save()
@@ -157,7 +157,7 @@ def editarDesaparecido(request, pk):
             #    return HttpResponse("Imagem invalida. Por favor, tente outra.")
             return redirect("editarDesaparecido", pk = instance.pk)
     else:
-        instance = Pessoa.objects.get(pk=pk)
+        instance = Pessoa.actives.get(pk=pk)
         form = PessoaForm(instance = instance)
     return render(request, "editar_pessoa_model_form.html", {
         "form": form,
@@ -165,7 +165,7 @@ def editarDesaparecido(request, pk):
 
 @login_required
 def visualizarDesaparecido(request, pk):
-    pessoa = Pessoa.objects.get(pk=pk)
+    pessoa = Pessoa.actives.get(pk=pk)
     return render(request, "desaparecido.html", {"pessoa": pessoa})
 
 @login_required
@@ -361,7 +361,7 @@ def editarUsuario(request, pk):
             usuario.save()
             return redirect("editarUsuario", pk = usuario.pk)
     else:
-        usuario = User.objects.get(pk=pk)
+        usuario = Usuario.actives.get(pk=pk)
         form = UserForm(instance = usuario)
     return render(request, "editar_usuario_model_form.html", {
         "form": form,
@@ -369,7 +369,7 @@ def editarUsuario(request, pk):
 
 @login_required
 def visualizarUsuario(request, pk):
-    usuario = User.objects.get(pk=pk)
+    usuario = Usuario.actives.get(pk=pk)
     return render(request, "usuario.html", {"usuario": usuario})
 
 @login_required
