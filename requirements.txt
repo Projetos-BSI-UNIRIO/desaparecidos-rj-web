@@ -9,3 +9,4 @@ face_recognition==1.2.2
 pytz==2018.5
 dj-database-url==0.3.0
 psycopg2==2.7.5
+django-ipware
