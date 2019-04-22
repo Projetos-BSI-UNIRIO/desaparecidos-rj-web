@@ -3,12 +3,15 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
-from django.conf import settings
+#from django.conf import settings    # nao importar diretamente
 from django.utils.safestring import mark_safe
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now, localtime
 from django.views.decorators.csrf import csrf_exempt
+
+from ipware import get_client_ip
+
 from datetime import date, timedelta, datetime
 import pytz
 import calendar
@@ -24,6 +27,10 @@ import string
 
 from .models import *
 from .forms import *
+
+
+# Logger
+logger = logging.getLogger(__name__)
 
 
 def getFaceEcoding(image):
@@ -65,6 +72,13 @@ def gerarNomesNormalizados(): # metodo para apeas gerar o nome normalizado para 
         pessoa.nome_normalizado = normalizarNome(pessoa.nome)
         pessoa.save()
 
+# Adiciona IP do request ao fim de mensagens a serem utilizadas como log.
+# Uso: logger.info(adicionarIp("Mensagem", request))
+def adicionarIp(mensagem, request):
+    client_ip = get_client_ip(request)
+    ip_str = "[%s] " % (str(client_ip[0]) if client_ip is not None else "IP Desconhecido")
+    return ip_str + mensagem
+
 # Create your views here.
 
 @login_required
@@ -79,13 +93,18 @@ def userLogin(request):
             print(request)
             if user and user.is_active:
                 login(request, user)
+
+                logger.info(adicionarIp("Usuário %s autenticado." % (str(user.pk)), request))
                 return redirect("index")
             else:
+                logger.warning(adicionarIp("Tentativa de autenticacao com dados inválidos (combinação inexistente ou usuário inativo).", request))
                 return HttpResponse("Dados de autenticacao invalidos.")
         else:
+            logger.info(adicionarIp("Tentativa de autenticacao com formulario invalido.", request))
             return HttpResponse("Dados de autenticacao invalidos.")
     else:
         return render(request, "login.html", {"form": LogInForm()})
+
 @csrf_exempt
 def userLoginMobile(request):
     if request.method == "POST":  
@@ -98,6 +117,7 @@ def userLoginMobile(request):
              return HttpResponse(status=301)
     else:
         return HttpResponse(status=302)
+
 @login_required
 def userLogout(request):
     logout(request)

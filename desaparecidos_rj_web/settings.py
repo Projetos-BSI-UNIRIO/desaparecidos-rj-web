@@ -138,3 +138,60 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = "/webserver/login/"
+
+
+# Log dedfinitions
+
+LOG_LEVEL = "DEBUG" if DEBUG else "INFO"
+LOG_FILES_DIR = ""  # By default, the current directory.
+EVENTS_LOG_FILE_NAME = "desaparecidos-rj.log"
+REQUESTS_LOG_FILE_NAME = "req-desaparecidos-rj.log"
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '[%(asctime)s] [%(name)s] [%(funcName)s] [%(levelname)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            #'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+            #'style': '{',
+        },
+        'file': {
+            'format': '[%(asctime)s] [%(name)s] [%(funcName)s] [%(levelname)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            #'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+            #'style': '{',
+        },
+    },
+    #'filters': {
+    #    'require_debug_false': {
+    #        '()': 'django.utils.log.RequireDebugFalse'
+    #    }
+    #},
+    'handlers': {
+        'console': {
+            'level': LOG_LEVEL,
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+        'file': {
+            'level': LOG_LEVEL,
+            'class': "logging.FileHandler",
+            'formatter': 'file',
+            'filename': LOG_FILES_DIR + EVENTS_LOG_FILE_NAME,
+        },
+    },
+    'loggers': {
+        #'apps.WebserverConfig': {
+        #    'handlers': ["file"],
+        #    'level': LOG_LEVEL,
+        #    'propagate': True,
+        #},
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'file']
+        }
+    },
+}
