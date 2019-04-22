@@ -97,12 +97,13 @@ def userLogin(request):
                 logger.info(adicionarIp("Usuário %s autenticado." % (str(user.pk)), request))
                 return redirect("index")
             else:
-                logger.warning(adicionarIp("Tentativa de autenticacao com dados inválidos (combinação inexistente ou usuário inativo).", request))
-                return HttpResponse("Dados de autenticacao invalidos.")
+                logger.warning(adicionarIp("Tentativa de autenticação com dados inválidos (combinação inexistente ou usuário inativo).", request))
+                return HttpResponse("Dados de autenticação inválidos.")
         else:
-            logger.info(adicionarIp("Tentativa de autenticacao com formulario invalido.", request))
-            return HttpResponse("Dados de autenticacao invalidos.")
+            logger.info(adicionarIp("Tentativa de autenticação com formulário inválido.", request))
+            return HttpResponse("Dados de autenticação inválidos.")
     else:
+        #logger.info(adicionarIp("Tentativa de autenticação por método HTTP inválido (%s). Redirecionando para página de log-in." % (request.method), request))
         return render(request, "login.html", {"form": LogInForm()})
 
 @csrf_exempt
@@ -112,15 +113,22 @@ def userLoginMobile(request):
         print(request.POST.get('username'))
         if user and user.is_active:
                 login(request, user)
+
+                #logger.info(adicionarIp("Usuário %s autenticado." % (str(user.pk)), request))
                 return HttpResponse(status=200)
         else:
-             return HttpResponse(status=301)
+            #logger.warning(adicionarIp("Tentativa de autenticação com dados inválidos (combinação inexistente ou usuário inativo).", request))
+            return HttpResponse(status=301)
     else:
+        #logger.warning(adicionarIp("Tentativa de autenticação por método HTTP inválido (%s)." % (request.method), request))
         return HttpResponse(status=302)
 
 @login_required
 def userLogout(request):
+    logger.info(adicionarIp("Usuário %s encerrou sua sessão." % (str(request.user.pk)), request))
+
     logout(request)
+
     return redirect("login")
 
 @login_required
@@ -151,6 +159,9 @@ def cadastrarDesaparecido(request):
             #else:
             #    instance.delete()
             #    return HttpResponse("Imagem invalida. Por favor, tente outra.")
+
+            logger.info(adicionarIp("Desaparecido %s cadastrado pelo usuário %s." % (str(instance.pk), str(request.user.pk)), request))
+
             return redirect("visualizarDesaparecido", pk = instance.pk)
     else:
         form = PessoaForm()
@@ -175,6 +186,9 @@ def editarDesaparecido(request, pk):
             #    instance.save()
             #else:
             #    return HttpResponse("Imagem invalida. Por favor, tente outra.")
+
+            logger.info(adicionarIp("Desaparecido %s editado pelo usuário %s." % (str(instance.pk), str(request.user.pk)), request))
+
             return redirect("editarDesaparecido", pk = instance.pk)
     else:
         instance = Pessoa.actives.get(pk=pk)
@@ -186,6 +200,9 @@ def editarDesaparecido(request, pk):
 @login_required
 def visualizarDesaparecido(request, pk):
     pessoa = Pessoa.actives.get(pk=pk)
+
+    logger.info(adicionarIp("Desaparecido %s visualizado pelo usuário %s." % (str(pessoa.pk), str(request.user.pk)), request))
+
     return render(request, "desaparecido.html", {"pessoa": pessoa})
 
 @login_required
@@ -193,6 +210,9 @@ def removerDesaparecido(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)
     pessoa.is_active=False
     pessoa.save()
+
+    logger.info(adicionarIp("Desaparecido %s removido/desativado pelo usuário %s." % (str(pessoa.pk), str(request.user.pk)), request))
+
     return redirect("desaparecidos")
 
 @login_required
@@ -227,6 +247,9 @@ def buscarDesaparecidoWeb(request):
                         kwargs = {'{0}__{1}'.format(atributo, 'icontains'): form.cleaned_data[atributo]}
                         resultadoBusca = resultadoBusca.filter(**kwargs)
             results = []
+
+
+            logger.info(adicionarIp("Busca por desaparecido realizada pelo usuário %s com os parâmetros: %s" % (str(request.user.pk), str(form.cleaned_data)), request))
 
             if contador_de_parametros == 0:
                 return render(request, "erro_busca.html", {})
@@ -363,6 +386,8 @@ def cadastrarUsuario(request):
             usuario.set_password(usuario.password) # to hash the password
             usuario.save()
 
+            logger.info(adicionarIp("Usuário %s cadastrado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
+
             return redirect("visualizarUsuario", pk = usuario.pk)
     else:
         form = UserForm()
@@ -379,6 +404,9 @@ def editarUsuario(request, pk):
             usuario = form.save()
             usuario.set_password(usuario.password)
             usuario.save()
+
+            logger.info(adicionarIp("Usuário %s editado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
+
             return redirect("editarUsuario", pk = usuario.pk)
     else:
         usuario = Usuario.actives.get(pk=pk)
@@ -390,6 +418,9 @@ def editarUsuario(request, pk):
 @login_required
 def visualizarUsuario(request, pk):
     usuario = Usuario.actives.get(pk=pk)
+
+    logger.info(adicionarIp("Usuário %s visualizado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
+
     return render(request, "usuario.html", {"usuario": usuario})
 
 @login_required
@@ -397,4 +428,7 @@ def removerUsuario(request, pk):
     usuario = get_object_or_404(User, pk=pk)
     usuario.is_active = False
     usuario.save()
+
+    logger.info(adicionarIp("Usuário %s removido/desativado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
+
     return redirect("usuarios")
