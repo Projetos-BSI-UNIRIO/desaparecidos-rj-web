@@ -18,7 +18,7 @@ A comunicação entre essas duas partes é feito através de uma API simples, co
 
 ## Instalação ##
 
-Para “executar” a aplicação web no Ubuntu Linux (16.04), basta instalar o Python 3 (já presente em algumas distribuições Linux) e a Dlib e suas dependências. Também é sugerida a instalação das dependências em um ambiente virtual. Assim, o passo-a-passo é executar no terminal:
+Para “executar” a aplicação web no Ubuntu Linux (16.04), basta instalar o Python, o Django e mais algumas bibliotecas. No entanto, sugere-se que essa instalação seja realizada em um ambiente virtual. Assim, o passo-a-passo é executar no terminal:
 
     wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
     
@@ -28,12 +28,12 @@ Para “executar” a aplicação web no Ubuntu Linux (16.04), basta instalar o 
     
     source activate desaparecidosrjweb
     
-    pip install django
+    sudo apt-get install gcc g++ cmake libpq-dev
     
-    pip install unidecode
+    # Esta linha deverá demorar alguns minutos para ser concluída.
+    pip install -r requirements.txt
     
-    # Esta linha demorará a ser concluída.
-    pip install face_recognition
+**Observação:** Recomenda-se fortemente a instalação em um sistema com 2GB de memória RAM ou mais.
 
 Para testar a aplicação fora de produção, basta executar, dentro do ambiente virtual, a seguinte linha e acessar, através de um navegador web, a URL “http://localhost:8000”:
 
@@ -48,5 +48,5 @@ https://www.digitalocean.com/community/tutorials/how-to-serve-django-application
 Software em desenvolvimento por equipe voluntária da Universidade Federal do Estado do Rio de Janeiro (UNIRIO), sob orientação das professoras Geiza M. H. Silva e Renata M. Araújo. 
 
 Desenvolvido utilizando:
-- Python 3.x
-- Django 1.1
+- Python 3.6
+- Django 2.2
