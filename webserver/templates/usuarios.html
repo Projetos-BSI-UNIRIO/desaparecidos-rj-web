@@ -1,46 +1,57 @@
 {% extends './main.html' %}
 {% load static %}
 
-    {% block page_content %}
-        <section id="page-contents">
-            <header class="content-top">
-                <p>Usuários</p>
-                <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
-            </header>
-            <section id="button-container">
-                <div id="register-button" class="grey-on-hover">
-                    <a href="{% url 'cadastrarUsuario' %}" class="button-link">
-                        <div class="button-text-container">
-                            <p class="button-title">CADASTRO</p>
-                            <p class="button-subtitle">Clique para cadastrar um usuário</p>
-                        </div>
-                        <img class="button-icon" src="{% static 'images/black-circle-plus-icon.png' %}">
-                    </a>
-                </div>
-            </section>
-            <div class="results-grid">
-                {% if results %}
-                {% for result in results %}
-                    <div class="result user-result">
-                        <div class="result-contents">
-                            <a href="{% url 'editarUsuario' pk=result.pk %}" class="option-button link-button grey-on-hover">
-                                <p>Editar</p><img src="{% static 'images/pencil-icon.png' %}">
-                            </a>
-                            <a href="{% url 'removerUsuario' pk=result.pk %}" class="option-button link-button grey-on-hover" style="margin-left: 16px;">
-                                <p>Excluir</p><img src="{% static 'images/black-x-icon.png' %}">
-                            </a>
-                            <p class="label">Nome de usuário:</p> 
-                            <p class="name">{{ result.username }}</p>
-                        </div>
-                        <div class=result-details-option>
-                            <a href="{% url 'visualizarUsuario' pk=result.pk %}" class="option-button"><img src="{% static 'images/white-plus-icon.png' %}"><p>Detalhes</p></a>
-                        </div>
+{% block page_content %}
+    <section id="page-contents">
+        <header class="content-top">
+            <p>Usuários</p>
+            <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
+        </header>
+        <section id="button-container">
+            <div id="register-button" class="grey-on-hover">
+                <a href="{% url 'cadastrarUsuario' %}" class="button-link">
+                    <div class="button-text-container">
+                        <p class="button-title">CADASTRO</p>
+                        <p class="button-subtitle">Clique para cadastrar um usuário</p>
                     </div>
-                {% endfor %}
-            {% else %}
-                <p>Nenhum usuario encontrado.</p>
-            {% endif %}
-                
+                    <img class="button-icon" src="{% static 'images/black-circle-plus-icon.png' %}">
+                </a>
             </div>
         </section>
+        <div class="results-grid">
+            {% if results %}
+            {% for result in results %}
+                <div class="result user-result">
+                    <div class="result-contents">
+                        <a href="{% url 'editarUsuario' pk=result.pk %}" class="option-button link-button grey-on-hover">
+                            <p>Editar</p><img src="{% static 'images/pencil-icon.png' %}">
+                        </a>
+                        <a href="#" onclick="overlay('{% url 'removerUsuario' pk=result.pk %}')" class="option-button link-button grey-on-hover" style="margin-left: 16px;">
+                            <p>Excluir</p><img src="{% static 'images/black-x-icon.png' %}">
+                        </a>
+                        <p class="label">Nome de usuário:</p>
+                        <p class="name">{{ result.username }}</p>
+                    </div>
+                    <div class=result-details-option>
+                        <a href="{% url 'visualizarUsuario' pk=result.pk %}" class="option-button"><img src="{% static 'images/white-plus-icon.png' %}"><p>Detalhes</p></a>
+                    </div>
+                </div>
+                <script>
+                    function overlay(link) {
+                        var resultado = confirm("Você realmente quer apagar este usuário?");
+                        if(resultado){
+                            window.location.href = link;
+                        }
+                   }
+                </script>
+            {% endfor %}
+        {% else %}
+            <p>Nenhum usuario encontrado.</p>
+        {% endif %}
+
+        </div>
+    </section>
+{% endblock %}
+        </section>
     {% endblock %}
+
