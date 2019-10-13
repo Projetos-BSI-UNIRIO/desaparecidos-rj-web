@@ -28,7 +28,7 @@
                         
                         <br>
                         <p>Aparência e Características</p>
-                        <div class="data_field"><span class="space-to-the-right">Tipo físico:</span><span class="grey-text">{{ form.tipo_fisico }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Tipo físico:</span><span class="grey-text">{{ pessoa.tipo_fisico|default_if_none:"" }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Faixa de altura:</span><span class="grey-text">{{ pessoa.get_faixa_altura_display|default_if_none:"" }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Cor da pele:</span><span class="grey-text">{{ pessoa.cor_pele|default_if_none:"" }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Cor dos olhos:</span><span class="grey-text">{{ pessoa.cor_olhos|default_if_none:"" }}</span></div>
