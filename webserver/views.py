@@ -16,7 +16,6 @@ import time
 import logging
 import os
 import json
-import cv2
 import face_recognition # lembrar de instalar
 import facebook
 import unidecode # lembrar de instalar
