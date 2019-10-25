@@ -17,7 +17,6 @@ import logging
 import os
 import json
 import face_recognition # lembrar de instalar
-import facebook
 import unidecode # lembrar de instalar
 import string
 
