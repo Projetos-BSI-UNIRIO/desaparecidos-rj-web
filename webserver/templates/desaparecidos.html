@@ -41,7 +41,7 @@
                             <a href="{% url 'editarDesaparecido' pk=result.pk %}" class="option-button link-button grey-on-hover">
                                 <p>Editar</p><img src="{% static 'images/pencil-icon.png' %}">
                             </a>
-                            <a href="{% url 'removerDesaparecido' pk=result.pk %}" class="option-button link-button grey-on-hover">
+                            <a href="#" onclick = "overlay('{% url 'removerDesaparecido' pk=result.pk %}')" class="option-button link-button grey-on-hover">
                                 <p>Excluir</p><img src="{% static 'images/black-x-icon.png' %}">
                             </a>
                             <p class="name">{{ result.nome }}</p>
@@ -50,11 +50,19 @@
                             <a href="{% url 'visualizarDesaparecido' pk=result.pk %}" class="option-button"><img src="{% static 'images/white-plus-icon.png' %}"><p>Detalhes</p></a>
                         </div>
                     </div>
+                    <script>
+                        function overlay(link) {
+                            var resultado = confirm("Você realmente quer apagar este desaparecido?");
+                            if(resultado){
+                                window.location.href = link;
+                            }
+                       }
+                    </script>
                 {% endfor %}
             {% else %}
                 <p>Nenhum desaparecido encontrado.</p>
             {% endif %}
-                
+
             </section>
         </section>
     {% endblock %}

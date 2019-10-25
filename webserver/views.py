@@ -16,24 +16,29 @@ import time
 import logging
 import os
 import json
-
+import cv2
 import face_recognition # lembrar de instalar
-
+import facebook
 import unidecode # lembrar de instalar
 import string
 
 from .models import *
 from .forms import *
 
+def gerarCartaz(foto, cartaz):
+    x_offset=y_offset=50
+    cartaz[y_offset:y_offset+foto.shape[0], x_offset:x_offset+foto.shape[1]] = foto
+
+
 
 def getFaceEcoding(image):
-    print(image.name)
-    if image.name is None:
+    print(image.fileName)
+    if image.fileName is None:
         return {
             "invalid_image": True
         }
-    print(os.path.join(settings.MEDIA_ROOT, image.name))
-    source_image = face_recognition.load_image_file(os.path.join(settings.MEDIA_ROOT, image.name))
+    print(os.path.join(settings.MEDIA_ROOT, image.fileName))
+    source_image = face_recognition.load_image_file(os.path.join(settings.MEDIA_ROOT, image.fileName))
     print(len(source_image))
     if len(source_image) < 1:
         return {
@@ -88,7 +93,7 @@ def userLogin(request):
         return render(request, "login.html", {"form": LogInForm()})
 @csrf_exempt
 def userLoginMobile(request):
-    if request.method == "POST":  
+    if request.method == "POST":
         user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
         print(request.POST.get('username'))
         if user and user.is_active:
@@ -119,8 +124,10 @@ def cadastrarDesaparecido(request):
         if form.is_valid():
             instance = form.save()
             instance.nome_normalizado = normalizarNome(instance.nome)
+            instance.cartazete = gerarCartaz(instance.foto, instance.cartazete)
             print(instance.nome_normalizado)
             instance.save()
+
             #print(type(instance.photo))
             #print(instance.photo.name)
             #result = getFaceEcoding(instance.foto)
@@ -172,6 +179,7 @@ def visualizarDesaparecido(request, pk):
 def removerDesaparecido(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)
     pessoa.delete()
+    logger.info(adicionarIp("Desaparecido %s removido/desativado pelo usuário %s." % (str(pessoa.pk), str(request.user.pk)), request))
     return redirect("desaparecidos")
 
 @login_required
@@ -374,4 +382,5 @@ def visualizarUsuario(request, pk):
 def removerUsuario(request, pk):
     usuario = get_object_or_404(User, pk=pk)
     usuario.delete()
+    logger.info(adicionarIp("Usuário %s removido/desativado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
     return redirect("usuarios")

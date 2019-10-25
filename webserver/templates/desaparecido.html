@@ -25,10 +25,10 @@
                         <div class="data_field"><span class="space-to-the-right">Idade aparente:</span><span class="grey-text">{{ pessoa.get_idade_aparente_display|default_if_none:"" }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Nome do pai:</span><span class="grey-text">{{ pessoa.nome_pai|default_if_none:"" }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Nome da mãe:</span><span class="grey-text">{{ pessoa.nome_mae|default_if_none:"" }}</span></div>
-                        
+
                         <br>
                         <p>Aparência e Características</p>
-                        <div class="data_field"><span class="space-to-the-right">Tipo físico:</span><span class="grey-text">{{ form.tipo_fisico }}</span></div>
+                        <div class="data_field"><span class="space-to-the-right">Tipo físico:</span><span class="grey-text">{{ pessoa.tipo_fisico }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Faixa de altura:</span><span class="grey-text">{{ pessoa.get_faixa_altura_display|default_if_none:"" }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Cor da pele:</span><span class="grey-text">{{ pessoa.cor_pele|default_if_none:"" }}</span></div>
                         <div class="data_field"><span class="space-to-the-right">Cor dos olhos:</span><span class="grey-text">{{ pessoa.cor_olhos|default_if_none:"" }}</span></div>
@@ -48,7 +48,7 @@
                                 <img src="{% static 'images/no-photo-image.png' %}" width="200" height="200" />
                                 {% endif %}
                                 <br>
-                                
+
                                 <p><!-- Gambiarra --></p>
                                 <br>
                                 <p class="label-paragraph">Cartazete:</p>
@@ -57,7 +57,7 @@
                                 {% else %}
                                 <img src="{% static 'images/no-cartazete.png' %}" width="200" height="200" />
                                 {% endif %}
-                                
+
 
                                 <p><!-- Gambiarra --></p>
                                 <br>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                
+
 
             </section>
         </section>
