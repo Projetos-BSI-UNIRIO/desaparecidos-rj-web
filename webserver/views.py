@@ -177,7 +177,6 @@ def visualizarDesaparecido(request, pk):
 def removerDesaparecido(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)
     pessoa.delete()
-    logger.info(adicionarIp("Desaparecido %s removido/desativado pelo usuário %s." % (str(pessoa.pk), str(request.user.pk)), request))
     return redirect("desaparecidos")
 
 @login_required
@@ -380,5 +379,4 @@ def visualizarUsuario(request, pk):
 def removerUsuario(request, pk):
     usuario = get_object_or_404(User, pk=pk)
     usuario.delete()
-    logger.info(adicionarIp("Usuário %s removido/desativado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
     return redirect("usuarios")
