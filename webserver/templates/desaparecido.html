@@ -52,7 +52,6 @@
                                 <p><!-- Gambiarra --></p>
                                 <br>
                                 <p class="label-paragraph">Cartazete:</p>
-                                {% if pessoa.cartazete.name %}
                                 <div class="container" id = "container">
                                   <img src="{% static 'images/cartaz.jpg' %}" id="cartazete" />
                                   <div class="info" id="info" >
@@ -63,9 +62,7 @@
                                   <div class="nome" id="nome"><p>{{ pessoa.nome }}</p></div>
                                   <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 140px;max-width:130px;"></div>
                                  </div>
-                                {% else %}
-                                <img src="{% static 'images/no-cartazete.png' %}" width="200" height="200" />
-                                {% endif %}
+                            
 
 
 
