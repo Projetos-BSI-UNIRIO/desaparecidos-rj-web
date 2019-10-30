@@ -53,10 +53,20 @@
                                 <br>
                                 <p class="label-paragraph">Cartazete:</p>
                                 {% if pessoa.cartazete.name %}
-                                <img src="{{ pessoa.cartazete.url }}" width="200" height="200" />
+                                <div class="container" id = "container">
+                                  <img src="{% static 'images/cartaz.jpg' %}" id="cartazete" />
+                                  <div class="info" id="info" >
+                                    <div class="idade" id="idade"><p class="infodes">Idade: {{ pessoa.idade_aparente }}</p></div>
+                                    <div class="quando" id="quando"><p class="infodes">{{ pessoa.data_desaparecimento }}</p></div>
+                                    <div class="local" id="local"><p class="infodes">Local de desaparecimento: {{ pessoa.local_desaparecimento }}</p></div>
+                                  </div>
+                                  <div class="nome" id="nome"><p>{{ pessoa.nome }}</p></div>
+                                  <div class="foto" id="foto"><img src = "{{ obterImagem(pessoa) }}" style="max-height: 140px;max-width:130px;"></div>
+                                 </div>
                                 {% else %}
                                 <img src="{% static 'images/no-cartazete.png' %}" width="200" height="200" />
                                 {% endif %}
+
 
 
                                 <p><!-- Gambiarra --></p>

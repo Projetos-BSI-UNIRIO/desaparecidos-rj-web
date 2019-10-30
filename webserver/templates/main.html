@@ -46,10 +46,10 @@
                 });
             }
 
-        </script> 
+        </script>
 
         <style>
-            
+
 
             /* resets definitions */
             *, *:after, *:before{
@@ -73,7 +73,7 @@
                 #border: 1px solid black;
                 #margin-left: auto;
                 #margin-right: auto;
-                
+
             }
 
             body header {
@@ -141,7 +141,7 @@
             #menu-section ul li a div img {
                 width: auto;
                 height: 40px;
-                #float: 
+                #float:
             }
 
             #menu-section ul li a #desaparecidos-option {
@@ -193,7 +193,7 @@
 
             .content-top img:hover {
                 background-color: #bdbec0;
-                cursor: pointer; 
+                cursor: pointer;
                 cursor: hand;
             }
 
@@ -509,7 +509,7 @@
             #.person_data_container > div .data_field span > input, span > select {
             #    width: 100%;
             #}
-            
+
             .grey-text {
                 color: #818286;
                 #margin-left: 10px;
@@ -613,7 +613,42 @@
                 font-weight: bold;
             }
 
+
             
+            .idade {
+              position: absolute;
+              top: 160px;
+              right: 50px;
+              color: white;
+            }
+            .quando {
+              position: absolute;
+              top: 190px;
+              right: 50px;
+              color: white;
+            }
+            .local {
+              position: absolute;
+              top: 220px;
+              right: 50px;
+              color: white;
+            }
+            .foto{
+              position: absolute;
+              top: 150px;
+              left: 80px;
+              color: white;
+            }
+            .nome{
+              position: absolute;
+              top: 290px;
+              left: 80px;
+              color: white;
+            }
+            p.infodes{
+              font-size: 8px;
+            }
+
 
             /*.section_header_h3{
                 font-size: 18px;
@@ -636,14 +671,14 @@
             .student_subject_semester_table p {
                 margin: 0 5px 0 5px;
             }*/
-            
+
         </style>
-            
+
     </head>
     <body>
         <header>
             <div>
-                
+
                 <section id="menu-section">
                     <ul>
                         <li><a href="{% url 'index' %}"><div><img src="{% static 'images/home-icon.png' %}" /><p>Home</p></div></a></li>

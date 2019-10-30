@@ -87,8 +87,15 @@ WSGI_APPLICATION = 'desaparecidos_rj_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+#DATABASES = {
+#    'default': dj_database_url.config(default='postgres://jlhdzikewiovee:03fd466c7d024db8268d86cb1320896a1d56336ae9cdb99ed197344854f95bee@ec2-54-83-29-34.compute-1.amazonaws.com:5432/d98sa37euvn8lt')
+#}
+
 DATABASES = {
-    'default': dj_database_url.config(default='postgres://jlhdzikewiovee:03fd466c7d024db8268d86cb1320896a1d56336ae9cdb99ed197344854f95bee@ec2-54-83-29-34.compute-1.amazonaws.com:5432/d98sa37euvn8lt')
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'desaparecidos_rj.sqlite3'),
+    }
 }
 
 
@@ -131,3 +138,60 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = "/webserver/login/"
+
+
+# Log dedfinitions
+
+LOG_LEVEL = "DEBUG" if DEBUG else "INFO"
+LOG_FILES_DIR = ""  # By default, the current directory.
+EVENTS_LOG_FILE_NAME = "desaparecidos-rj.log"
+REQUESTS_LOG_FILE_NAME = "req-desaparecidos-rj.log"
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '[%(asctime)s] [%(name)s] [%(funcName)s] [%(levelname)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            #'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+            #'style': '{',
+        },
+        'file': {
+            'format': '[%(asctime)s] [%(name)s] [%(funcName)s] [%(levelname)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            #'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+            #'style': '{',
+        },
+    },
+    #'filters': {
+    #    'require_debug_false': {
+    #        '()': 'django.utils.log.RequireDebugFalse'
+    #    }
+    #},
+    'handlers': {
+        'console': {
+            'level': LOG_LEVEL,
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+        'file': {
+            'level': LOG_LEVEL,
+            'class': "logging.FileHandler",
+            'formatter': 'file',
+            'filename': LOG_FILES_DIR + EVENTS_LOG_FILE_NAME,
+        },
+    },
+    'loggers': {
+        #'apps.WebserverConfig': {
+        #    'handlers': ["file"],
+        #    'level': LOG_LEVEL,
+        #    'propagate': True,
+        #},
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'file']
+        }
+    },
+}
