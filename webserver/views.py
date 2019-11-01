@@ -3,15 +3,12 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
-#from django.conf import settings    # nao importar diretamente
+from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now, localtime
 from django.views.decorators.csrf import csrf_exempt
-
-from ipware import get_client_ip
-
 from datetime import date, timedelta, datetime
 import pytz
 import calendar
@@ -19,28 +16,27 @@ import time
 import logging
 import os
 import json
-
 import face_recognition # lembrar de instalar
-
 import unidecode # lembrar de instalar
 import string
 
 from .models import *
 from .forms import *
 
+def gerarCartaz(foto, cartaz):
+    x_offset=y_offset=50
+    cartaz[y_offset:y_offset+foto.shape[0], x_offset:x_offset+foto.shape[1]] = foto
 
-# Logger
-logger = logging.getLogger(__name__)
 
 
 def getFaceEcoding(image):
-    print(image.name)
-    if image.name is None:
+    print(image.fileName)
+    if image.fileName is None:
         return {
             "invalid_image": True
         }
-    print(os.path.join(settings.MEDIA_ROOT, image.name))
-    source_image = face_recognition.load_image_file(os.path.join(settings.MEDIA_ROOT, image.name))
+    print(os.path.join(settings.MEDIA_ROOT, image.fileName))
+    source_image = face_recognition.load_image_file(os.path.join(settings.MEDIA_ROOT, image.fileName))
     print(len(source_image))
     if len(source_image) < 1:
         return {
@@ -72,13 +68,6 @@ def gerarNomesNormalizados(): # metodo para apeas gerar o nome normalizado para 
         pessoa.nome_normalizado = normalizarNome(pessoa.nome)
         pessoa.save()
 
-# Adiciona IP do request ao fim de mensagens a serem utilizadas como log.
-# Uso: logger.info(adicionarIp("Mensagem", request))
-def adicionarIp(mensagem, request):
-    client_ip = get_client_ip(request)
-    ip_str = "[%s] " % (str(client_ip[0]) if client_ip is not None else "IP Desconhecido")
-    return ip_str + mensagem
-
 # Create your views here.
 
 @login_required
@@ -93,48 +82,34 @@ def userLogin(request):
             print(request)
             if user and user.is_active:
                 login(request, user)
-
-                logger.info(adicionarIp("Usuário %s autenticado." % (str(user.pk)), request))
                 return redirect("index")
             else:
-                logger.warning(adicionarIp("Tentativa de autenticação com dados inválidos (combinação inexistente ou usuário inativo).", request))
-                return HttpResponse("Dados de autenticação inválidos.")
+                return HttpResponse("Dados de autenticacao invalidos.")
         else:
-            logger.info(adicionarIp("Tentativa de autenticação com formulário inválido.", request))
-            return HttpResponse("Dados de autenticação inválidos.")
+            return HttpResponse("Dados de autenticacao invalidos.")
     else:
-        #logger.info(adicionarIp("Tentativa de autenticação por método HTTP inválido (%s). Redirecionando para página de log-in." % (request.method), request))
         return render(request, "login.html", {"form": LogInForm()})
-
 @csrf_exempt
 def userLoginMobile(request):
-    if request.method == "POST":  
+    if request.method == "POST":
         user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
         print(request.POST.get('username'))
         if user and user.is_active:
                 login(request, user)
-
-                #logger.info(adicionarIp("Usuário %s autenticado." % (str(user.pk)), request))
                 return HttpResponse(status=200)
         else:
-            #logger.warning(adicionarIp("Tentativa de autenticação com dados inválidos (combinação inexistente ou usuário inativo).", request))
-            return HttpResponse(status=301)
+             return HttpResponse(status=301)
     else:
-        #logger.warning(adicionarIp("Tentativa de autenticação por método HTTP inválido (%s)." % (request.method), request))
         return HttpResponse(status=302)
-
 @login_required
 def userLogout(request):
-    logger.info(adicionarIp("Usuário %s encerrou sua sessão." % (str(request.user.pk)), request))
-
     logout(request)
-
     return redirect("login")
 
 @login_required
 def desaparecidos(request):
     #form = BuscaPessoaForm()
-    results = Pessoa.actives.all()
+    results = Pessoa.objects.all()
     return render(request, "desaparecidos.html", {
         #"form": form,
         "results": results,
@@ -147,8 +122,10 @@ def cadastrarDesaparecido(request):
         if form.is_valid():
             instance = form.save()
             instance.nome_normalizado = normalizarNome(instance.nome)
+            instance.cartazete = gerarCartaz(instance.foto, instance.cartazete)
             print(instance.nome_normalizado)
             instance.save()
+
             #print(type(instance.photo))
             #print(instance.photo.name)
             #result = getFaceEcoding(instance.foto)
@@ -159,9 +136,6 @@ def cadastrarDesaparecido(request):
             #else:
             #    instance.delete()
             #    return HttpResponse("Imagem invalida. Por favor, tente outra.")
-
-            logger.info(adicionarIp("Desaparecido %s cadastrado pelo usuário %s." % (str(instance.pk), str(request.user.pk)), request))
-
             return redirect("visualizarDesaparecido", pk = instance.pk)
     else:
         form = PessoaForm()
@@ -172,7 +146,7 @@ def cadastrarDesaparecido(request):
 @login_required
 def editarDesaparecido(request, pk):
     if request.method == "POST":
-        instance = Pessoa.actives.get(pk=pk)
+        instance = Pessoa.objects.get(pk=pk)
         form = PessoaForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             instance = form.save()
@@ -186,12 +160,9 @@ def editarDesaparecido(request, pk):
             #    instance.save()
             #else:
             #    return HttpResponse("Imagem invalida. Por favor, tente outra.")
-
-            logger.info(adicionarIp("Desaparecido %s editado pelo usuário %s." % (str(instance.pk), str(request.user.pk)), request))
-
             return redirect("editarDesaparecido", pk = instance.pk)
     else:
-        instance = Pessoa.actives.get(pk=pk)
+        instance = Pessoa.objects.get(pk=pk)
         form = PessoaForm(instance = instance)
     return render(request, "editar_pessoa_model_form.html", {
         "form": form,
@@ -199,20 +170,13 @@ def editarDesaparecido(request, pk):
 
 @login_required
 def visualizarDesaparecido(request, pk):
-    pessoa = Pessoa.actives.get(pk=pk)
-
-    logger.info(adicionarIp("Desaparecido %s visualizado pelo usuário %s." % (str(pessoa.pk), str(request.user.pk)), request))
-
+    pessoa = Pessoa.objects.get(pk=pk)
     return render(request, "desaparecido.html", {"pessoa": pessoa})
 
 @login_required
 def removerDesaparecido(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)
-    pessoa.is_active=False
-    pessoa.save()
-
-    logger.info(adicionarIp("Desaparecido %s removido/desativado pelo usuário %s." % (str(pessoa.pk), str(request.user.pk)), request))
-
+    pessoa.delete()
     return redirect("desaparecidos")
 
 @login_required
@@ -230,7 +194,7 @@ def buscarDesaparecidoWeb(request):
 
         if form.is_valid():
             contador_de_parametros = 0
-            resultadoBusca = Pessoa.actives
+            resultadoBusca = Pessoa.objects
             for atributo in atributos_esperados:
                 if atributo in form.cleaned_data:
                     if form.cleaned_data[atributo] == "" or form.cleaned_data[atributo] is None:
@@ -247,9 +211,6 @@ def buscarDesaparecidoWeb(request):
                         kwargs = {'{0}__{1}'.format(atributo, 'icontains'): form.cleaned_data[atributo]}
                         resultadoBusca = resultadoBusca.filter(**kwargs)
             results = []
-
-
-            logger.info(adicionarIp("Busca por desaparecido realizada pelo usuário %s com os parâmetros: %s" % (str(request.user.pk), str(form.cleaned_data)), request))
 
             if contador_de_parametros == 0:
                 return render(request, "erro_busca.html", {})
@@ -287,7 +248,7 @@ def buscarDesaparecido(request):
 
     dadosBusca = json.loads(dadosBusca)
     contador_de_parametros = 0
-    resultadoBusca = Pessoa.actives
+    resultadoBusca = Pessoa.objects
     for atributo in dadosBusca:
         #print(atributo)
         if atributo not in atributos_esperados:
@@ -372,12 +333,11 @@ def buscarDesaparecido(request):
 
 @login_required
 def usuarios(request):
-    results = Usuario.actives.all()
+    results = User.objects.all()
     return render(request, "usuarios.html", {
         #"form": form,
         "results": results,
     })
-
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -385,8 +345,6 @@ def cadastrarUsuario(request):
             usuario = form.save()
             usuario.set_password(usuario.password) # to hash the password
             usuario.save()
-
-            logger.info(adicionarIp("Usuário %s cadastrado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
 
             return redirect("visualizarUsuario", pk = usuario.pk)
     else:
@@ -404,12 +362,9 @@ def editarUsuario(request, pk):
             usuario = form.save()
             usuario.set_password(usuario.password)
             usuario.save()
-
-            logger.info(adicionarIp("Usuário %s editado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
-
             return redirect("editarUsuario", pk = usuario.pk)
     else:
-        usuario = Usuario.actives.get(pk=pk)
+        usuario = User.objects.get(pk=pk)
         form = UserForm(instance = usuario)
     return render(request, "editar_usuario_model_form.html", {
         "form": form,
@@ -417,18 +372,11 @@ def editarUsuario(request, pk):
 
 @login_required
 def visualizarUsuario(request, pk):
-    usuario = Usuario.actives.get(pk=pk)
-
-    logger.info(adicionarIp("Usuário %s visualizado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
-
+    usuario = User.objects.get(pk=pk)
     return render(request, "usuario.html", {"usuario": usuario})
 
 @login_required
 def removerUsuario(request, pk):
     usuario = get_object_or_404(User, pk=pk)
-    usuario.is_active = False
-    usuario.save()
-
-    logger.info(adicionarIp("Usuário %s removido/desativado pelo usuário %s." % (str(usuario.pk), str(request.user.pk)), request))
-
+    usuario.delete()
     return redirect("usuarios")
