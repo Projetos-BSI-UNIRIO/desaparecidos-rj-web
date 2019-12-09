@@ -27,7 +27,7 @@
                             <div class="form_field">{{ form.nome_pai.label_tag }}<span>{{ form.nome_pai }}</span></div>
                             {{ form.nome_mae.errors }}
                             <div class="form_field">{{ form.nome_mae.label_tag }}<span>{{ form.nome_mae }}</span></div>
-                            
+
                             <br>
                             <p>Aparência e Características</p>
                             {{ form.tipo_fisico.errors }}
@@ -65,22 +65,31 @@
                                     </div>
                                     <label for="id_foto">ESCOLHER ARQUIVO</label>
                                     <span id='foto-file-name'></span>
-                                    
+
                                     <p><!-- Gambiarra --></p>
                                     <br>
                                     <p class="label-paragraph">Cartazete:</p>
-                                    {% if form.instance.cartazete.name %}
-                                    <img src="{{ form.instance.cartazete.url }}" width="200" height="200" />
-                                    {% else %}
-                                    <img src="{% static 'images/no-cartazete.png' %}" width="200" height="200" />
-                                    {% endif %}
+                                    {% if  form.instance.foto.name %}
+                                    <div class="container" id = "container">
+                                      <img src="{% static 'images/cartaz.jpg' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
+                                      <div class="info" id="info" >
+                                        <div class="idade2" id="idade"><p class="infodes" style="font-size: 6px" >Idade: {{form.instance.idade_aparente }}</p></div>
+                                        <div class="quando2" id="quando"><p class="infodes" style="font-size: 6px">{{ form.instance.data_desaparecimento }}</p></div>
+                                        <div class="local2" id="local"><p class="infodes" style="font-size: 6px">Local: {{ form.instance.local_desaparecimento }}</p></div>
+                                      </div>
+                                      <div class="nome2" id="nome"><p style="font-size:10px">{{form.instance.nome }}</p></div>
+                                      <div class="foto2" id="foto"><img src = "{{ form.instance.foto.url }}" style="max-height: 100px;max-width:100px;"></div>
+                                     </div>
+                                     {% else %}
+                                     <img src="{% static 'images/no-cartazete.png' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
+                                     {% endif %}
                                     <br>
                                     <div style="display: none;">
                                     {{ form.cartazete }}
                                     </div>
                                     <label for="id_cartazete">ESCOLHER ARQUIVO</label>
                                     <span id='cartazete-file-name'></span>
-                                    
+
 
                                     <p><!-- Gambiarra --></p>
                                     <br>

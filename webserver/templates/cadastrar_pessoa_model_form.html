@@ -100,33 +100,6 @@
                     <br>
                     <div class="button-div"><button type="submit" onclick="shareOnFacebook()">CADASTRAR</button><div>
                 </form>
-                <script>
-                  window.fbAsyncInit = function() {
-                    FB.init({
-                      appId            : '685097735300732',
-                      autoLogAppEvents : true,
-                      xfbml            : true,
-                      version          : 'v4.0'
-                    });
-                  };
-                  function shareOnFacebook(){
-                    var message = "Olá, mundo!";
-                    FB.ui({
-                      method: 'share',
-                      href: 'https://developers.facebook.com/docs/',
-                      function (response) {
-                        if (response && !response.error) {
-                          /* handle the result */
-                          alert('post shared succesfully');
-                        }
-                        else{
-                          alert(response.error)
-                        }
-                      }
-                    );
-                  }
-                </script>
-                <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
             </section>
         </section>
 
