@@ -22,10 +22,21 @@ import string
 
 from .models import *
 from .forms import *
-
-def gerarCartaz(foto, cartaz):
-    x_offset=y_offset=50
-    cartaz[y_offset:y_offset+foto.shape[0], x_offset:x_offset+foto.shape[1]] = foto
+import imgkit
+def gerarCartaz(pessoa):
+    body = """
+      <div class="container" id = "container">
+        <img src="{% static 'images/cartaz.jpg' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
+        <div class="info" id="info" >
+        <div class="idade" id="idade"><p class="infodes" style="font-size: 6px" >Idade: {{ pessoa.idade_aparente }}</p></div>
+        <div class="quando" id="quando"><p class="infodes" style="font-size: 6px">{{ pessoa.data_desaparecimento }}</p></div>
+        <div class="local" id="local"><p class="infodes" style="font-size: 6px">Local: {{ pessoa.local_desaparecimento }}</p></div>
+        </div>
+        <div class="nome" id="nome"><p style="font-size:10px">{{ pessoa.nome }}</p></div>
+        <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 100px;max-width:100px;"></div>
+    </div>
+    """
+    imgkit.from_string(body, '{{pessoa.nome_normalizado}}.png')
 
 
 
@@ -122,7 +133,7 @@ def cadastrarDesaparecido(request):
         if form.is_valid():
             instance = form.save()
             instance.nome_normalizado = normalizarNome(instance.nome)
-            instance.cartazete = gerarCartaz(instance.foto, instance.cartazete)
+            instance.cartazete = gerarCartaz(instance)
             print(instance.nome_normalizado)
             instance.save()
 
