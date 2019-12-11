@@ -9,7 +9,7 @@
                 <a href="{% url 'editarDesaparecido' pk=pessoa.pk %}" class="option-button link-button grey-on-hover">
                     <span>Editar</span><img src="{% static 'images/pencil-icon.png' %}">
                 </a>
-                <a href="{% url 'removerDesaparecido' pk=pessoa.pk %}" class="option-button link-button grey-on-hover">
+                <a href="#" onclick = "overlay('{% url 'removerDesaparecido' pk=result.pk %}')" class="option-button link-button grey-on-hover">
                     <span>Excluir</span><img src="{% static 'images/black-x-icon.png' %}">
                 </a>
                 <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
@@ -94,9 +94,19 @@
                     </div>
                 </div>
 
-
-
             </section>
+            
+            <script>
+                    
+                function overlay(link) {
+                    var resultado = confirm("Você realmente quer apagar este desaparecido?");
+                    if(resultado){
+                        window.location.href = link;
+                    }
+                }
+                    
+            </script>
+            
         </section>
 
     {% endblock %}
