@@ -8,7 +8,7 @@
                 <a href="{% url 'editarUsuario' pk=usuario.pk %}" class="option-button link-button grey-on-hover">
                     <span>Editar</span><img src="{% static 'images/pencil-icon.png' %}">
                 </a>
-                <a href="{% url 'removerUsuario' pk=usuario.pk %}" class="option-button link-button grey-on-hover">
+                <a href="#" onclick="overlay('{% url 'removerUsuario' pk=result.pk %}')" class="option-button link-button grey-on-hover">
                     <span>Excluir</span><img src="{% static 'images/black-x-icon.png' %}">
                 </a>
                 <img src="{% static 'images/back-button.png' %}" onclick="history.back()">
@@ -28,5 +28,16 @@
                     <p><!-- Gambiarra --></p>
                 </div>
             </section>
+            
+            <script>
+                    
+                function overlay(link) {
+                    var resultado = confirm("Você realmente quer apagar este usuário?");
+                    if(resultado){
+                        window.location.href = link;
+                    }
+                }
+                    
+            </script>
         </section>
     {% endblock %}
