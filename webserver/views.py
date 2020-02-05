@@ -115,7 +115,7 @@ def desaparecidos(request):
         "results": results,
     })
 
-@login_required
+#@login_required
 def cadastrarDesaparecido(request):
     if request.method == "POST":
         form = PessoaForm(request.POST, request.FILES)
@@ -338,7 +338,7 @@ def usuarios(request):
         #"form": form,
         "results": results,
     })
-@login_required    
+@login_required
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
