@@ -63,13 +63,16 @@
                                   <div class="nome" id="nome"><p style="font-size:10px">{{ pessoa.nome }}</p></div>
                                   <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 100px;max-width:100px;"></div>
                                  </div>
-                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
                                  <script type="text/javascript">
                                    function capturar(){
                                         var divImagem = document.getElementById("container");
-                                        divImagem = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-                                        divImagem.download = '{{ pessoa.nome }}.png'
-                                        divImagem.click();
+                                        html2canvas(divImagem).then(function(canvas) {
+                                        var imagem = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                                        var a = document.createElement('a');
+                                        a.href = image;
+                                        a.download = '{{ pessoa.foto.url }}.png';
+                                        a.click();
+                                    });
                                   }
                                  </script>
                                  {% else %}
