@@ -62,10 +62,10 @@
                               </div>
                               <div class="nome" id="nome"><p style="font-size:10px">{{ pessoa.nome }}</p></div>
                               <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 100px;max-width:100px;"></div>
-                            </div>
-                             <div class="button-div" onclick="capturar()"><button type="submit">Baixar cartaz</button><div>
+                             </div>
+                             <div class="button-div" onclick="capturar()"><button type="submit">Baixar cartaz</button></div>
 
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
                                 <script type="text/javascript">
                                    function capturar(){
                                         var divImagem = document.getElementById("container");
@@ -75,7 +75,7 @@
                                         a.href = imagem;
                                         a.download = '{{ pessoa.nome }}.png';
                                         a.click();
-                                  }
+                                  });
                                 }
                                  </script>
                                  {% else %}
