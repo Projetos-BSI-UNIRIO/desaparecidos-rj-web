@@ -23,11 +23,12 @@ import string
 from .models import *
 from .forms import *
 
-def gerarCartaz(foto, cartaz):
-    x_offset=y_offset=50
-    cartaz[y_offset:y_offset+foto.shape[0], x_offset:x_offset+foto.shape[1]] = foto
 
 
+def gerarCartaz(imagem, pk):
+    pessoa = Pessoa.objects.get(pk=pk)
+    pessoa.cartazete = imagem
+    return redirect("desaparecidos")
 
 def getFaceEcoding(image):
     print(image.fileName)
@@ -338,7 +339,7 @@ def usuarios(request):
         #"form": form,
         "results": results,
     })
-@login_required
+
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
