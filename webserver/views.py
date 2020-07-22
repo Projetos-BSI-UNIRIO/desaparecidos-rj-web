@@ -339,7 +339,7 @@ def usuarios(request):
         #"form": form,
         "results": results,
     })
-
+@login_required
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
