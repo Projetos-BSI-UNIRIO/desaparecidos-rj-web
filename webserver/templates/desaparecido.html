@@ -53,18 +53,19 @@
                                 <br>
                                 {% if pessoa.foto.name %}
                                 <p class="label-paragraph">Cartazete:</p>
-                                <div class="container" id = "container" onclick="capturar()">
-                                  <img src="{% static 'images/cartaz.jpg' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
-                                  <div class="info" id="info" >
-                                    <div class="idade" id="idade"><p class="infodes" style="font-size: 5px" >Idade: {{ pessoa.idade_aparente }}</p></div>
-                                    <div class="quando" id="quando"><p class="infodes" style="font-size: 5px">{{ pessoa.data_desaparecimento }}</p></div>
-                                    <div class="local" id="local"><p class="infodes" style="font-size: 5px">Local: {{ pessoa.local_desaparecimento }}</p></div>
-                                  </div>
-                                  <div class="nome" id="nome"><p style="font-size:10px">{{ pessoa.nome }}</p></div>
-                                  <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 100px;max-width:100px;"></div>
-                                 </div>
-                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-                                 <script type="text/javascript">
+                              <div class="container" id = "container" >
+                                <img src="{% static 'images/cartaz.jpg' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
+                                <div class="info" id="info" >
+                                  <div class="idade" id="idade"><p class="infodes" style="font-size: 5px" >Idade: {{ pessoa.idade_aparente }}</p></div>
+                                  <div class="quando" id="quando"><p class="infodes" style="font-size: 5px">{{ pessoa.data_desaparecimento }}</p></div>
+                                  <div class="local" id="local"><p class="infodes" style="font-size: 5px">Local: {{ pessoa.local_desaparecimento }}</p></div>
+                              </div>
+                              <div class="nome" id="nome"><p style="font-size:10px">{{ pessoa.nome }}</p></div>
+                              <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 100px;max-width:100px;"></div>
+                            </div>
+                            <span name="cap" onclick="capturar()"></span>
+                             <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+                                <script type="text/javascript">
                                    function capturar(){
                                         var divImagem = document.getElementById("container");
                                         html2canvas(divImagem).then(function(canvas) {
@@ -73,8 +74,8 @@
                                         a.href = imagem;
                                         a.download = '{{ pessoa.nome }}.png';
                                         a.click();
-                                    });
                                   }
+                                }
                                  </script>
                                  {% else %}
                                  <img src="{% static 'images/no-cartazete.png' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
