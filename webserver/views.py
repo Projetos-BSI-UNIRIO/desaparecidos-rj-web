@@ -123,7 +123,7 @@ def cadastrarDesaparecido(request):
         if form.is_valid():
             instance = form.save()
             instance.nome_normalizado = normalizarNome(instance.nome)
-            instance.cartazete = gerarCartaz(instance.foto, instance.cartazete)
+            #instance.cartazete = gerarCartaz(instance.foto, instance.cartazete)
             print(instance.nome_normalizado)
             instance.save()
 
