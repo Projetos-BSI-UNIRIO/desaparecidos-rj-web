@@ -27,7 +27,7 @@
                             <div class="form_field">{{ form.nome_pai.label_tag }}<span>{{ form.nome_pai }}</span></div>
                             {{ form.nome_mae.errors }}
                             <div class="form_field">{{ form.nome_mae.label_tag }}<span>{{ form.nome_mae }}</span></div>
-
+                            
                             <br>
                             <p>Aparência e Características</p>
                             {{ form.tipo_fisico.errors }}
@@ -65,14 +65,14 @@
                                     {{ form.foto }}
                                     <label for="id_foto">ESCOLHER ARQUIVO</label>
                                     <span id='foto-file-name'></span>
-
+                                    
                                     <p><!-- Gambiarra --></p>
                                     <br>
                                     <p class="label-paragraph">Cartazete:</p>
                                     {{ form.cartazete }}
                                     <label for="id_cartazete">ESCOLHER ARQUIVO</label>
                                     <span id='cartazete-file-name'></span>
-
+                                    
 
                                     <p><!-- Gambiarra --></p>
                                     <br>
@@ -102,6 +102,5 @@
                 </form>
             </section>
         </section>
-
 
     {% endblock %}
