@@ -110,6 +110,7 @@ def userLogout(request):
 @login_required
 def desaparecidos(request):
     #form = BuscaPessoaForm()
+    Pessoa.idade_aparente = Pessoa.idade_aparente.replace("_", " ")
     results = Pessoa.objects.all()
     return render(request, "desaparecidos.html", {
         #"form": form,
