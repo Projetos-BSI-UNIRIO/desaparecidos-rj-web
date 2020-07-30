@@ -110,7 +110,6 @@ def userLogout(request):
 @login_required
 def desaparecidos(request):
     #form = BuscaPessoaForm()
-    Pessoa.idade_aparente = Pessoa.idade_aparente.replace("_", " ")
     results = Pessoa.objects.all()
     return render(request, "desaparecidos.html", {
         #"form": form,
@@ -173,6 +172,7 @@ def editarDesaparecido(request, pk):
 @login_required
 def visualizarDesaparecido(request, pk):
     pessoa = Pessoa.objects.get(pk=pk)
+    pessoa.idade_aparente = pessoa.idade_aparente.replace("_", " ")
     return render(request, "desaparecido.html", {"pessoa": pessoa})
 
 @login_required
