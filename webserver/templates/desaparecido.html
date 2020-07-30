@@ -69,7 +69,7 @@
                                 <script type="text/javascript">
                                    function capturar(){
                                         var divImagem = document.getElementById("container");
-                                        html2canvas(divImagem).then(function(canvas) {
+                                        html2canvas(divImagem, scale: 2).then(function(canvas) {
                                         var imagem = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
                                         var a = document.createElement('a');
                                         a.href = imagem;
