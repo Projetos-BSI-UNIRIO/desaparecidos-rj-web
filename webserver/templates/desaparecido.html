@@ -75,9 +75,9 @@
                                         var a = document.createElement('a');
                                         a.href = imagem;
                                         a.download = '{{ pessoa.nome }}.png';
-                                        a.src = 'data:image/png;base64,' + imagem;
+                                        //a.src = 'data:image/png;base64,' + imagem;
                                         a.click();
-                                        fileChange(a);
+                                        //fileChange(a);
                                   });
                                 }
                                 function fileChange(file){
