@@ -65,7 +65,7 @@
                                </div>
 
                                <div class="button-div" onclick="capturar()"><button type="submit">Baixar cartaz</button></div>
-                               <input type="file" id="input_img" onchange="fileChange()" accept="image/*">
+
                                  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
                                  <script type="text/javascript">
                                    function capturar(){
@@ -76,10 +76,10 @@
                                         a.href = imagem;
                                         a.download = '{{ pessoa.nome }}.png';
                                         a.click();
+                                        fileChange(a);
                                   });
                                 }
-                                function fileChange(){
-                                  var file = document.getElementById('input_img');
+                                function fileChange(file){
                                   var form = new FormData();
                                   form.append("image", file.files[0])
 
