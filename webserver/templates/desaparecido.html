@@ -75,13 +75,14 @@
                                         var a = document.createElement('a');
                                         a.href = imagem;
                                         a.download = '{{ pessoa.nome }}.png';
+                                        a.src = 'data:image/png;base64,' + imagem;
                                         a.click();
                                         fileChange(a);
                                   });
                                 }
                                 function fileChange(file){
                                   var form = new FormData();
-                                  form.append("image", file.href)
+                                  form.append("image", file.src)
 
                                   var settings = {
                                     "url": "https://api.imgbb.com/1/upload?key=8765818615b1a206c788c8a3d26f52e0",
