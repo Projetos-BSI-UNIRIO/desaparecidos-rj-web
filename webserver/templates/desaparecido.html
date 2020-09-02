@@ -81,7 +81,7 @@
                                 }
                                 function fileChange(file){
                                   var form = new FormData();
-                                  form.append("image", file.files[0])
+                                  form.append("image", file.href)
 
                                   var settings = {
                                     "url": "https://api.imgbb.com/1/upload?key=8765818615b1a206c788c8a3d26f52e0",
