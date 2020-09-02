@@ -53,20 +53,21 @@
                                 <br>
                                 {% if pessoa.foto.name %}
                                 <p class="label-paragraph">Cartazete:</p>
-                              <div class="container" id = "container" >
-                                <img src="{% static 'images/cartazpreto.jpg' %}" style="max-height: 400px;max-width:300px;" id="cartazete" />
-                                <div class="info" id="info" >
-                                  <div class="idade" id="idade"><p class="infodes" style="font-size: 11px" >Idade: {{ pessoa.idade_aparente }}</p></div>
-                                  <div class="quando" id="quando"><p class="infodes" style="font-size: 11px">Desaparecimento: {{ pessoa.data_desaparecimento }}</p></div>
-                                  <div class="local" id="local"><p class="infodes" style="font-size: 11px">Local: {{ pessoa.local_desaparecimento }}</p></div>
-                              </div>
-                              <div class="nome" id="nome"><p style="font-size:15px">{{ pessoa.nome }}</p></div>
-                              <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 120px;max-width:120px;"></div>
-                             </div>
-                             <div class="button-div" onclick="capturar()"><button type="submit">Baixar cartaz</button></div>
+                               <div onload="colocarImagem()" class="container" id = "container" >
+                                  <img src="{% static 'images/cartazpreto.jpg' %}" style="max-height: 400px;max-width:300px;" id="cartazete" />
+                                  <div class="info" id="info" >
+                                    <div class="idade" id="idade"><p class="infodes" style="font-size: 11px" >Idade: {{ pessoa.idade_aparente }}</p></div>
+                                    <div class="quando" id="quando"><p class="infodes" style="font-size: 11px">Desaparecimento: {{ pessoa.data_desaparecimento }}</p></div>
+                                    <div class="local" id="local"><p class="infodes" style="font-size: 11px">Local: {{ pessoa.local_desaparecimento }}</p></div>
+                                </div>
+                                <div class="nome" id="nome"><p style="font-size:15px">{{ pessoa.nome }}</p></div>
+                                <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 120px;max-width:120px;"></div>
+                               </div>
 
-                                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-                                <script type="text/javascript">
+                               <div class="button-div" onclick="capturar()"><button type="submit">Baixar cartaz</button></div>
+
+                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+                                 <script type="text/javascript">
                                    function capturar(){
                                         var divImagem = document.getElementById("container");
                                         html2canvas(divImagem).then(function(canvas) {
@@ -76,6 +77,10 @@
                                         a.download = '{{ pessoa.nome }}.png';
                                         a.click();
                                   });
+                                  function colocarImagem(){
+                                    html2canvas(document.getElementById('Container')).then(function(canvas) {
+                                      document.body.appendChild(canvas);
+                                    });
                                 }
                                  </script>
                                  {% else %}
