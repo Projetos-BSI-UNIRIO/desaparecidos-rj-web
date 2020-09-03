@@ -340,13 +340,13 @@ def usuarios(request):
         #"form": form,
         "results": results,
     })
-@login_required
+#@login_required
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
             usuario = form.save()
-            usuario.set_password(usuario.password) # to hash the password
+            usuario.set_password(usuario.password)
             usuario.save()
 
             return redirect("visualizarUsuario", pk = usuario.pk)
