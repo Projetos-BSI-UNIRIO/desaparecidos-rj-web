@@ -23,6 +23,10 @@ import string
 from .models import *
 from .forms import *
 
+@login_required
+def editarNomeCartazete(request, pk):
+    pessoa = Pessoa.objects.get(pk=pk)
+    pessoa.nome_no_cartazete = request;
 
 
 def gerarCartaz(imagem, pk):
@@ -340,7 +344,7 @@ def usuarios(request):
         #"form": form,
         "results": results,
     })
-@login_required
+#@login_required
 def cadastrarUsuario(request):
     if request.method == "POST":
         form = UserForm(request.POST)
