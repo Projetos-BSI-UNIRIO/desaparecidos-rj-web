@@ -43,7 +43,7 @@
                             <div class="data_field">
                                 <p class="label-paragraph">Foto:</p>
                                 {% if pessoa.foto.name %}
-                                <img src="{{ pessoa.foto.url }}" width="200" height="200" />
+                                <img src="{{ pessoa.foto.url }}" width="300" height="300" />
                                 {% else %}
                                 <img src="{% static 'images/no-photo-image.png' %}" width="200" height="200" />
                                 {% endif %}
@@ -53,20 +53,24 @@
                                 <br>
                                 {% if pessoa.foto.name %}
                                 <p class="label-paragraph">Cartazete:</p>
-                              <div class="container" id = "container" >
-                                <img src="{% static 'images/cartaz.jpg' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
-                                <div class="info" id="info" >
-                                  <div class="idade" id="idade"><p class="infodes" style="font-size: 5px" >Idade: {{ pessoa.idade_aparente }}</p></div>
-                                  <div class="quando" id="quando"><p class="infodes" style="font-size: 5px">{{ pessoa.data_desaparecimento }}</p></div>
-                                  <div class="local" id="local"><p class="infodes" style="font-size: 5px">Local: {{ pessoa.local_desaparecimento }}</p></div>
-                              </div>
-                              <div class="nome" id="nome"><p style="font-size:10px">{{ pessoa.nome }}</p></div>
-                              <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 100px;max-width:100px;"></div>
-                             </div>
-                             <div class="button-div" onclick="capturar()"><button type="submit">Baixar cartaz</button></div>
+                               <div class="container" id = "container" >
+                                  <img src="{% static 'images/cartazpreto.jpg' %}" style="max-height: 400px;max-width:300px;" id="cartazete" />
+                                  <div class="info" id="info" >
+                                    <div class="idade" id="idade"><p class="infodes" style="font-size: 11px" >Idade: {{ pessoa.idade_aparente }}</p></div>
+                                    <div class="quando" id="quando"><p class="infodes" style="font-size: 11px">Desaparecimento: {{ pessoa.data_desaparecimento }}</p></div>
+                                    <div class="local" id="local"><p class="infodes" style="font-size: 11px">Local: {{ pessoa.local_desaparecimento }}</p></div>
+                                </div>
+                                <div class="nome" id="nome"><p style="font-size:15px">{{ pessoa.nome }}</p></div>
+                                <div class="foto" id="foto"><img src = "{{ pessoa.foto.url }}" style="max-height: 120px;max-width:120px;"></div>
+                               </div>
 
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-                                <script type="text/javascript">
+                               <div class="button-div" onclick="capturar()"><button type="submit">Baixar cartaz</button>
+
+                               </div><br>
+                                <input type="file" id="input_img" onchange="fileChange()" accept="image/*"><br>
+                                <script src="https://code.jquery.com/jquery-2.0.3.min.js" type="text/javascript" ></script>
+                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+                                 <script type="text/javascript">
                                    function capturar(){
                                         var divImagem = document.getElementById("container");
                                         html2canvas(divImagem).then(function(canvas) {
@@ -74,9 +78,35 @@
                                         var a = document.createElement('a');
                                         a.href = imagem;
                                         a.download = '{{ pessoa.nome }}.png';
+                                        //a.src = 'data:image/png;base64,' + imagem;
                                         a.click();
-                                  }
+                                        //fileChange(a);
+                                  });
                                 }
+                                function fileChange(){
+                                  var file = document.getElementById('input_img');
+                                  var form = new FormData();
+                                  form.append("image", file.files[0])
+
+                                  var settings = {
+                                    "url": "https://api.imgbb.com/1/upload?key=8765818615b1a206c788c8a3d26f52e0",
+                                    "method": "POST",
+                                    "timeout": 0,
+                                    "processData": false,
+                                    "mimeType": "multipart/form-data",
+                                    "contentType": false,
+                                    "data": form
+                                  };
+
+
+                                  $.ajax(settings).done(function (response) {
+                                    console.log(response);
+                                    var jx = JSON.parse(response);
+                                    console.log(jx.data.url);
+
+
+                                  });
+                                  }
                                  </script>
                                  {% else %}
                                  <img src="{% static 'images/no-cartazete.png' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
@@ -85,15 +115,14 @@
                                 <p><!-- Gambiarra --></p>
                                 <br>
                                 <p class="label-paragraph">Nome no cartazete:</p>
-                                {% if pessoa.nome %}
-                                <span class="grey-text">{{ pessoa.nome }}</span>
+                                {% if pessoa.nome_no_cartazete %}
+                                <span class="grey-text">{{ pessoa.nome_no_cartazete }}</span>
                                 {% else %}
                                 <span class="grey-text">Sem nome no cartazete</span>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
-
                     <p><!-- Gambiarra --></p>
                     <br>
                     <p>Sobre o Desaparecimento</p>
