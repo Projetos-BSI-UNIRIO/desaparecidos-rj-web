@@ -26,7 +26,7 @@ from .forms import *
 @login_required
 def editarNomeCartazete(request, pk):
     pessoa = Pessoa.objects.get(pk=pk)
-    pessoa.nome_no_cartazete = request;
+    pessoa.nome_no_cartazete = request.GET["nomecartazete"]
     pessoa.idade_aparente = pessoa.idade_aparente.replace("_", " ")
     return render(request, "desaparecido.html", {"pessoa": pessoa})
 
