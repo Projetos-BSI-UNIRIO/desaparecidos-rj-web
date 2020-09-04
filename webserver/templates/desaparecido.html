@@ -109,7 +109,7 @@
                                     let nome = array[4].split(".");
                                     let nomecartaz = code+"/"+nome[0];
                                     console.log(nomecartaz);
-                                    window.location.href = "{% url 'editarNomeCartazete' request=12345 pk=result.pk %}".replace(/12345/, nomecartaz);
+                                    window.location.href = "{% url 'editarNomeCartazete' request=12345 pk=pessoa.pk %}".replace(/12345/, nomecartaz);
                                     alert("Cartaz guardado!");
 
                                   });
