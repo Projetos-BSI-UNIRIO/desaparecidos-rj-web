@@ -104,6 +104,12 @@
                                     console.log(response);
                                     var jx = JSON.parse(response);
                                     console.log(jx.data.url);
+                                    let array = jx.data.image.url.split("/");
+                                    let code = array[3];
+                                    let nome = array[4].split(".");
+                                    let nomecartaz = code+"/"+nome[0];
+                                    console.log(nomecartaz);
+                                    window.location.href = "{% url 'editarNomeCartazete' request=12345 pk=result.pk %}".replace(/12345/, nomecartaz);
                                     alert("Cartaz guardado!");
 
                                   });
