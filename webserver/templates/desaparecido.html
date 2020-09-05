@@ -113,7 +113,7 @@
 
                                   });
                                   var request = {
-                                    "url": "{% url 'editarNomeCartazete' pk=pessoa.pk %}",
+                                    "url": "{% url 'editarNomeCartazete' pk=pessoa.pk %}"+"?nomecartzete="+nomecartaz,
                                     "method": "GET",
                                     "nomecartazete": nomecartaz
                                   };
