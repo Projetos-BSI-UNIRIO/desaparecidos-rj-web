@@ -98,7 +98,7 @@
                                     "contentType": false,
                                     "data": form
                                   };
-                                  let nomecartaz = "something";
+
 
                                   $.ajax(settings).done(function (response) {
                                     console.log(response);
@@ -107,19 +107,20 @@
                                     let array = jx.data.image.url.split("/");
                                     let code = array[3];
                                     let nome = array[4].split(".");
-                                    nomecartaz = code+"/"+nome[0];
+                                    let nomecartaz = code+"/"+nome[0];
                                     console.log(nomecartaz);
+                                    let url = "{% url 'editarNomeCartazete' pk=pessoa.pk %}"+"?nomecartazete="+nomecartaz;
+                                    console.log(url);
+                                    var request = {
+                                      "url": url,
+                                      "method": "GET",
+                                      "nomecartazete": nomecartaz
+                                    };
+                                    $.ajax(request).done(function (response) {
+                                      console.log(response);
+                                    });
                                   });
-                                  let url = "{% url 'editarNomeCartazete' pk=pessoa.pk %}"+"?nomecartazete="+nomecartaz;
-                                  console.log(url);
-                                  var request = {
-                                    "url": url,
-                                    "method": "GET",
-                                    "nomecartazete": nomecartaz
-                                  };
-                                  $.ajax(request).done(function (response) {
-                                    console.log(response);
-                                  });
+
                                 }
                                  </script>
                                  {% else %}
