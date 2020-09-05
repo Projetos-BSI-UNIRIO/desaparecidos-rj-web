@@ -109,11 +109,10 @@
                                     let nome = array[4].split(".");
                                     nomecartaz = code+"/"+nome[0];
                                     console.log(nomecartaz);
-                                    window.location.href = "";
-
                                   });
+                                  let url = "{% url 'editarNomeCartazete' pk=pessoa.pk %}"+"?nomecartzete="+nomecartaz;
                                   var request = {
-                                    "url": "{% url 'editarNomeCartazete' pk=pessoa.pk %}"+"?nomecartzete="+nomecartaz,
+                                    "url": url,
                                     "method": "GET",
                                     "nomecartazete": nomecartaz
                                   };
