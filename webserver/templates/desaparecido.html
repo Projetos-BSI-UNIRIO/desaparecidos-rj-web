@@ -98,7 +98,7 @@
                                     "contentType": false,
                                     "data": form
                                   };
-
+                                  let nomecartaz = "something";
 
                                   $.ajax(settings).done(function (response) {
                                     console.log(response);
@@ -107,12 +107,20 @@
                                     let array = jx.data.image.url.split("/");
                                     let code = array[3];
                                     let nome = array[4].split(".");
-                                    let nomecartaz = code+"/"+nome[0];
+                                    nomecartaz = code+"/"+nome[0];
                                     console.log(nomecartaz);
-                                    window.location.href = "{% url 'editarNomeCartazete' pk=pessoa.pk %}";
+                                    window.location.href = "";
 
                                   });
-                                  }
+                                  var request = {
+                                    "url": "{% url 'editarNomeCartazete' pk=pessoa.pk %}",
+                                    "method": "GET",
+                                    "nomecartazete": nomecartaz
+                                  };
+                                  $.ajax(settings).done(function (response) {
+                                    console.log(response);
+                                  });
+                                }
                                  </script>
                                  {% else %}
                                  <img src="{% static 'images/no-cartazete.png' %}" style="max-height: 500px;max-width:200px;" id="cartazete" />
