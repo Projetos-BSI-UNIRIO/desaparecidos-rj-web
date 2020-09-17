@@ -27,7 +27,7 @@ from .forms import *
 def editarNomeCartazete(request, pk):
     pessoa = Pessoa.objects.get(pk=pk)
     pessoa.nome_no_cartazete = request.GET["nomecartazete"]
-    pessoa.idade_aparente = pessoa.idade_aparente.replace("_", " ")
+    pessoa.save()
     return render(request, "desaparecido.html", {"pessoa": pessoa})
 
 def gerarCartaz(imagem, pk):
